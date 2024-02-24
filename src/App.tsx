@@ -1,33 +1,30 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import logo from './assets/klause-b-logo.png';
+import resume from './assets/Resume.pdf';
+import lowerIcon from './assets/lower-icon.png';
+import './styles/App.less'
+import './styles/common.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [resumeOpen, setResumeOpen] = useState(true);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <img src={logo} style={{ width: "22%"}}/>
+      <div className={'buttonRow col-6'}>
+        <div className={'button resume'} onClick={() => setResumeOpen(true)}>resume</div>
+        <div className={'button art'}>Art</div>
+        <div className={'button writing'}>Writing</div>
+        <div className={'button research'}>research</div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {resumeOpen &&
+        <div className={'resumeWrapper'} style={{ width: '65%'}}>
+          <iframe className={'resume'} src = {resume} id="resume"></iframe>
+          <div className={'closeResume'} onClick={() => setResumeOpen(false)}>
+            <img src={lowerIcon}/>
+          </div>
+        </div>
+}
     </>
   )
 }
