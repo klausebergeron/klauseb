@@ -59,21 +59,22 @@
   }
 }
 
+.resumeWrapper {
+  display: block;
+  width: 65%;
+  margin: auto;
+}
 
 .resume {
-  margin:auto;
+  top: 100px;
+  display: block;
+  margin: auto;
   width: 65%; 
   height: 100%; 
   position: absolute; 
   z-index: 2; 
-  top: 100px;
-  animation-name: slideUp; 
-  animation-duration: 1s;
-}
-
-.resumeOut {
-  animation: slideUp;
-  animation-direction: reverse;
+  border-style: solid; 
+  border-color: black;
 }
 
 .closeResume {
@@ -85,12 +86,10 @@
   top: 60px; 
   height: 40px;
   margin: auto;
-  animation-name: slideUp; 
-  animation-duration: 1s;
   &:hover { cursor: pointer;}
   &>img {
-    width: '38px';
-    margin-top: '4px'
+    width: 38px;
+    margin-top: 4px
   }
 }
 
