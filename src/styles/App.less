@@ -61,7 +61,7 @@
   }
 }
 
-.resumeWrapper {
+#resumeWrapper {
     display: block;
     position: fixed;
     height: 100%; 
@@ -91,6 +91,15 @@
   }
 }
 
+.closeWindowDown {
+  animation: slideDown 1s !important;
+}
+
 @keyframes slideUp {
   from {top:100%;}
+}
+
+@keyframes slideDown {
+  from {top: 60px}
+  to {top: 200%}
 }
