@@ -1,3 +1,4 @@
+import React from "react";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -6,22 +7,49 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import './styles/navBar.less';
 import './styles/common.css';
+import './styles/fonts.css';
+import { Container, Typography } from "@mui/material";
+import logo from './assets/klause-b-logo-circled.png';
 
-export default function HeaderBar() {
 
+const HeaderBar: React.FC<{}> = ({ activePage }) => {
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+      };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const pages = ['art', 'writing', 'research']
     return (
-        <AppBar position='absolute' sx={{ flexGrow: 1 }} className='bar'>
-            <Toolbar>
-                <IconButton
-                    size="large"
-                    edge="end"
-                    color="inherit"
-                    aria-label="menu"
+        <AppBar position='absolute' className='bar' sx={{ flexGrow: 1 }}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+        
+                <img src={logo} className='logo'/>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'Caveat',
+                    fontWeight: 700,
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    }}
+                    className="caveat-basic"
                 >
-                    <MenuIcon />
-            </IconButton>
-          </Toolbar>
+            claudia bergeron
+          </Typography>
+
+            </Toolbar>
+          </Container>
         </AppBar>
     )
 }
+
+export default HeaderBar;

@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  //set desktop style property second for faster mobile loading
   @media only screen and (min-width: 768px) {
     flex-direction: row;
   }
@@ -29,13 +30,13 @@
     cursor: pointer;
   }
   &.art {
-    background: #E2DD38;
+    background: #e7e465;
     &:hover {
-      box-shadow: 0px 0px 2em 1em #72701c;
+      box-shadow: 0px 0px 2em 1em #e7e57a;
     }
   }
   
-  &.resume {
+  &.resumebutton {
     background: #3d1050;
     color: white;
     &:hover {
@@ -60,32 +61,28 @@
 }
 
 .resumeWrapper {
-  display: block;
-  width: 65%;
-  margin: auto;
+    display: block;
+    position: fixed;
+    height: 100%; 
+    width: 80%;
+    top: 60px;
+    left: 10%;
+    animation: slideUp .5s;
 }
 
 .resume {
-  top: 100px;
   display: block;
   margin: auto;
-  width: 65%; 
-  height: 100%; 
-  position: absolute; 
+  width: -webkit-fill-available; 
+  height: -webkit-fill-available;
   z-index: 2; 
-  border-style: solid; 
-  border-color: black;
+  border: 3px solid black; 
 }
 
 .closeResume {
   border-style: solid; 
   border-color: black;
-  width: 65%; 
-  position: absolute; 
   z-index: 2; 
-  top: 60px; 
-  height: 40px;
-  margin: auto;
   &:hover { cursor: pointer;}
   &>img {
     width: 38px;

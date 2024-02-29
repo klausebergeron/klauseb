@@ -14,17 +14,17 @@ function App() {
       <HeaderBar/>
       <img src={logo} style={{ width: "22%", marginTop: '70px'}}/>
       <div className={'buttonRow col-6'}>
-        <div className={'button resume'} onClick={() => setResumeOpen(true)}>resume</div>
+        <div className={'button resumebutton'} onClick={() => setResumeOpen(true)}>resume</div>
         <div className={'button art'}>Art</div>
         <div className={'button writing'}>Writing</div>
         <div className={'button research'}>research</div>
       </div>
       {resumeOpen &&
-        <div className={'resumeWrapper'} style={{ width: '65%'}}>
-          <iframe className={'resume'} src = {resume} id="resume"></iframe>
+        <div className={'resumeWrapper'}>
           <div className={'closeResume'} onClick={() => setResumeOpen(false)}>
             <img src={lowerIcon}/>
           </div>
+          <iframe className={'resume'} src = {resume} id="resume"></iframe>
         </div>
 }
     </>
