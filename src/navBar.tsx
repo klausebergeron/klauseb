@@ -30,21 +30,7 @@ const HeaderBar: React.FC<{}> = ({ activePage }) => {
                 <Toolbar disableGutters>
         
                 <img src={logo} className='logo'/>
-                <Typography
-                    variant="h6"
-                    noWrap
-                    sx={{
-                    mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'Caveat',
-                    fontWeight: 700,
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    }}
-                    className="caveat-basic"
-                >
-            claudia bergeron
-          </Typography>
+                <h3 className="caveat-basic">claudia bergeron</h3>
 
             </Toolbar>
           </Container>
