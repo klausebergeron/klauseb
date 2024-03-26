@@ -3,8 +3,18 @@ import logo from './assets/klause-b-logo.png';
 import resume from './assets/Resume.pdf';
 import lowerIcon from './assets/lower-icon.png';
 import HeaderBar from './navBar';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 import './styles/App.less'
 import './styles/common.css'
+import ArtLanding from './ArtPage/ArtLanding';
+import WritingLanding from './WritingPage/WritingLanding';
+import ProjectsLanding from './ProjectsPage/ProjectsLanding';
+import Home from './Home';
 
 function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -18,24 +28,20 @@ function App() {
     }, 500))
   }
 
+  const goToPage = (page: string) => {
+
+  }
+
   return (
     <>
-      <HeaderBar/>
-      <img src={logo} style={{ width: "22%", marginTop: '70px'}}/>
-      <div className={'buttonRow col-6'}>
-        <div className={'button resumebutton'} onClick={() => setResumeOpen(true)}>resume</div>
-        <div className={'button art'}>Art</div>
-        <div className={'button writing'}>Writing</div>
-        <div className={'button research'}>research</div>
-      </div>
-      {resumeOpen &&
-        <div id={'resumeWrapper'}>
-          <div className={'closeResume'} onClick={closeResume}>
-            <img src={lowerIcon}/>
-          </div>
-          <iframe className={'resume'} src = {resume} id="resume"></iframe>
-        </div>
-}
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/art' element={<ArtLanding/>} />
+      <Route path='/writing' element={<WritingLanding/>} />
+      <Route path='/projects' element={<ProjectsLanding/>}/>
+    </Routes>
+    </BrowserRouter>
     </>
   )
 }
