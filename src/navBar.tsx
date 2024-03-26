@@ -33,7 +33,7 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
   return (
     <AppBar position="absolute" className="bar" sx={{ flexGrow: 1 }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters className="flex between">
+        <Toolbar disableGutters className="flex toolbar">
           <Box sx={{ display: "flex" }}>
             <Link to="/" className="logo-link">
               <img src={logo} className="logo" />
@@ -43,7 +43,7 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
             </Link>
           </Box>
           {/*Mobile and small screen menu*/}
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none", p: 0 } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="menu"
@@ -80,7 +80,7 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
             </Menu>
           </Box>
           {/*Desktop and large page menu*/}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
