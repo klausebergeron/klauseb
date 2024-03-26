@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/system/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,10 +17,18 @@ interface HeaderBarProps {
   activePage: string;
 }
 
-const HeaderBar: React.FC<HeaderBarProps> = () => {
+const HeaderBar: React.FC<HeaderBarProps> = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const activePage = props.activePage;
+
+  useEffect(() => {
+    setTimeout(() => {
+      const activeButton = document.getElementById("page" + activePage);
+      activeButton?.classList.add("active");
+    }, 2);
+  }, [activePage]);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -28,7 +36,7 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  console.log(activePage);
   const pages = ["art", "writing", "projects"];
   return (
     <AppBar position="absolute" className="bar" sx={{ flexGrow: 1 }}>
@@ -73,7 +81,11 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  className={page === activePage ? "active" : ""}
+                  onClick={handleCloseNavMenu}
+                >
                   <Link to={"/" + page}>{page}</Link>
                 </MenuItem>
               ))}
@@ -82,13 +94,16 @@ const HeaderBar: React.FC<HeaderBarProps> = () => {
           {/*Desktop and large page menu*/}
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
-                onClick={handleCloseNavMenu}
-              >
-                <Link to={"/" + page}>{page}</Link>
-              </Button>
+              <Link to={"/" + page}>
+                <Button
+                  key={page}
+                  id={page + "page"}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  className={page === activePage ? "active" : ""}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>
