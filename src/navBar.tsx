@@ -39,7 +39,7 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
   console.log(activePage);
   const pages = ["art", "writing", "projects"];
   return (
-    <AppBar position="absolute" className="bar" sx={{ flexGrow: 1 }}>
+    <AppBar position="fixed" className="bar" sx={{ flexGrow: 1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters className="flex toolbar">
           <Box sx={{ display: "flex" }}>
