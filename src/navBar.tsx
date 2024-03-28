@@ -36,7 +36,6 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  console.log(activePage);
   const pages = ["art", "writing", "projects"];
   return (
     <AppBar position="fixed" className="bar" sx={{ flexGrow: 1 }}>
@@ -47,7 +46,7 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
               <img src={logo} className="logo" />
             </Link>
             <Link to="/">
-              <h3 className="caveat-basic">claudia bergeron</h3>
+              <h3 className="caveat-basic name-link">claudia bergeron</h3>
             </Link>
           </Box>
           {/*Mobile and small screen menu*/}

@@ -9,9 +9,12 @@
 }
 
 .logo {
-  height: 30px;
+  height: 3em;
   @media only screen and (min-width: 768px) {
     margin-right: 20px;
+  }
+  @media only screen and (max-width: 500px) {
+    height: 2em;
   }
 }
 
@@ -26,4 +29,13 @@
 .active {
   border-radius: 0 !important;
   border-bottom: 2px solid !important;
+}
+
+.name-link {
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  font-size: 1.5em;
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
 }
