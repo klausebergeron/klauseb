@@ -1,32 +1,30 @@
-import { useState } from 'react'
-import logo from './assets/klause-b-logo.png';
-import resume from './assets/Resume.pdf';
-import lowerIcon from './assets/lower-icon.png';
-import './styles/App.less'
-import './styles/common.css'
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "./styles/app.less";
+import "./styles/common.css";
+import ArtLanding from "./ArtPage/ArtLanding";
+import WritingLanding from "./WritingPage/WritingLanding";
+import ProjectsLanding from "./ProjectsPage/ProjectsLanding";
+import Home from "./Home";
+import Pages from "./WritingPage/Pages";
+import decode from "./decode";
 
 function App() {
-  const [resumeOpen, setResumeOpen] = useState(true);
-
+  //console.log(decode());
+  //decode();
   return (
     <>
-      <img src={logo} style={{ width: "22%"}}/>
-      <div className={'buttonRow col-6'}>
-        <div className={'button resume'} onClick={() => setResumeOpen(true)}>resume</div>
-        <div className={'button art'}>Art</div>
-        <div className={'button writing'}>Writing</div>
-        <div className={'button research'}>research</div>
-      </div>
-      {resumeOpen &&
-        <div className={'resumeWrapper'} style={{ width: '65%'}}>
-          <iframe className={'resume'} src = {resume} id="resume"></iframe>
-          <div className={'closeResume'} onClick={() => setResumeOpen(false)}>
-            <img src={lowerIcon}/>
-          </div>
-        </div>
-}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/art" element={<ArtLanding />} />
+          <Route path="/writing" element={<WritingLanding />} />
+          <Route path="/writing/pages/:page" element={<Pages />} />
+          <Route path="/projects" element={<ProjectsLanding />} />
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,77 @@
+body {
+  background: rgb(216, 214, 208);
+}
+
+.page-summary {
+  z-index: 2;
+  min-width: fit-content;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: calc(64px + 5%) 5% 5% 2%;
+  background: rgb(211, 207, 198);
+  height: 100%;
+  h1 {
+    font-size: 6em;
+    text-align: right;
+  }
+  p {
+    text-align: right;
+  }
+  @media only screen and (max-width: 768px) {
+    height: 60px;
+    padding: 0;
+    top: 60px;
+    h1 {
+      font-size: 2em;
+      text-align: center;
+    }
+    p {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    top: 54px;
+  }
+  @media only screen and (max-width: 400px) {
+    top: 54px;
+  }
+}
+
+.scroll-section {
+  position: relative;
+  z-index: 1;
+  margin-top: 80px;
+  box-sizing: content-box;
+  float: right;
+  padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  @media only screen and (max-width: 768px) {
+    margin-top: 112px;
+    padding: 0;
+  }
+  @media only screen and (max-width: 500px) {
+    margin-top: 112px;
+    padding: 0;
+  }
+  @media only screen and (max-width: 400px) {
+    margin-top: 112px;
+    padding: 0;
+    margin-left: 0;
+  }
+}
+
+.picture-container {
+  height: 20em;
+}
+
+.image {
+  height: 80%;
+}
+
+.label {
+  width: 100%;
+}
