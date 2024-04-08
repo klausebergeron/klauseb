@@ -24,10 +24,8 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
   const activePage = props.activePage;
 
   useEffect(() => {
-    setTimeout(() => {
-      const activeButton = document.getElementById("page" + activePage);
-      activeButton?.classList.add("active");
-    }, 2);
+    const activeButton = document.getElementById("page" + activePage);
+    activeButton?.classList.add("active");
   }, [activePage]);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -85,7 +83,9 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
                   className={page === activePage ? "active" : ""}
                   onClick={handleCloseNavMenu}
                 >
-                  <Link to={"/" + page}>{page}</Link>
+                  <Link key={page} to={"/" + page}>
+                    {page}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>

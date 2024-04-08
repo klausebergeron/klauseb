@@ -1,9 +1,11 @@
-import { defineConfig } from "vite";
+import { defineConfig, searchForWorkspaceRoot } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import react from "@vitejs/plugin-react";
 
+console.log("root:", searchForWorkspaceRoot(process.cwd()));
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "http://localhost:5173",
   plugins: [
     react(),
     nodePolyfills({
@@ -19,4 +21,11 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    fs: {
+      strict: false,
+      // Allow serving files from one level up to the project root
+      allow: [searchForWorkspaceRoot(process.cwd()), "/"],
+    },
+  },
 });
