@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/app.less";
 import "./styles/common.css";
 import ArtLanding from "./ArtPage/ArtLanding";
@@ -7,11 +6,8 @@ import WritingLanding from "./WritingPage/WritingLanding";
 import ProjectsLanding from "./ProjectsPage/ProjectsLanding";
 import Home from "./Home";
 import Pages from "./WritingPage/Pages";
-import decode from "./decode";
 
 function App() {
-  //console.log(decode());
-  //decode();
   return (
     <>
       <BrowserRouter>
