@@ -6,11 +6,11 @@ const ProjectsPage: React.FC = () => {
     <div>
       <HeaderBar activePage="projects" />
       <div>
-        <div className="page-summary col-4">
+        <div className="page-summary">
           <h1 className="title">Projects</h1>
           <p>Research and hobby projects</p>
         </div>
-        <div className="scroll-section col-7 col-s-11">
+        <div className="scroll-section">
           <div>
             <div>
               <div className="project-link">

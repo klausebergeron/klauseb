@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import HeaderBar from "../navBar";
 import "../styles/writing.less";
-import "../styles/common.css";
+import "../styles/common.less";
 import One from "../assets/writing/One";
 import Two from "../assets/writing/Two";
 import Melody from "../assets/writing/Melody";

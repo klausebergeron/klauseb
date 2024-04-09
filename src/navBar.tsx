@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import "./styles/navBar.less";
-import "./styles/common.css";
+import "./styles/common.less";
 import "./styles/fonts.css";
 
 import { Link } from "react-router-dom";
