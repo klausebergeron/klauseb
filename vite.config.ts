@@ -13,6 +13,9 @@ export default defineConfig({
     ],
   },
   //Build  for Github deployement
+  build: {
+    outDir: "build",
+  },
   plugins: [
     react(),
     nodePolyfills({
