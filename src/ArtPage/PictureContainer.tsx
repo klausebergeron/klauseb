@@ -8,7 +8,7 @@ const PictureContainer: React.FC<PictureContainerProps> = (props) => {
   console.log("filepath: ", filePath.split("/"));
   var title = fpArr[fpArr.length - 1];
   title = title.includes("-D")
-    ? title.slice(0, title.length - 8)
+    ? title.slice(0, title.indexOf("-"))
     : title.replace(".jpg", "").replace(".png", "");
   return (
     <div className="picture-container col-6 col-s-8">
