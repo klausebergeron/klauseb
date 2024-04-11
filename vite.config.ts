@@ -9,7 +9,7 @@ export default defineConfig({
   base: "",
   root: path.join(__dirname, ""),
   build: {
-    outDir: path.join(__dirname, "dist"),
+    outDir: path.join(__dirname, "build"),
     rollupOptions: {
       input: glob.sync(path.resolve(__dirname, "", "*.html")),
     },
