@@ -4,8 +4,6 @@ import resume from "./assets/Resume.pdf";
 import lowerIcon from "./assets/lower-icon.png";
 import HeaderBar from "./navBar";
 import { Link } from "react-router-dom";
-import "./styles/app.less";
-import "./styles/common.less";
 
 function Home() {
   const [resumeOpen, setResumeOpen] = useState(false);
