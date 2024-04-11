@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import HeaderBar from "../navBar";
 import "../styles/writing.less";
-import "../styles/common.css";
+import "../styles/common.less";
 import One from "../assets/writing/One";
 import Two from "../assets/writing/Two";
 import Melody from "../assets/writing/Melody";
@@ -14,9 +13,6 @@ import StressFractures from "../assets/writing/StressFractures";
 
 const Pages = () => {
   const { page } = useParams();
-  useEffect(() => {
-    console.log("Page: ", page);
-  }, []);
 
   const renderPage = () => {
     switch (page) {

@@ -1,6 +1,7 @@
 import HeaderBar from "../navBar";
 import React, { useEffect, useState } from "react";
 import "../styles/art.less";
+import "../styles/common.less";
 import PictureContainer from "./PictureContainer";
 const images = import.meta.glob("../assets/artwork/*", {
   import: "default",
@@ -23,11 +24,11 @@ const ArtLanding: React.FC<{}> = () => {
   return (
     <div>
       <HeaderBar activePage="art" />
-      <div className="page-summary col-2">
+      <div className="page-summary">
         <h1 className="title">Art</h1>
         <p>Some of my little doodles</p>
       </div>
-      <div className="scroll-section col-9">
+      <div className="scroll-section">
         {imgs &&
           imgs.map((i) => {
             return <PictureContainer key={i} filePath={i} />;

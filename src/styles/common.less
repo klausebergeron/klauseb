@@ -1,0 +1,177 @@
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-2 {
+    width: 16.66%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-4 {
+    width: 33.33%;
+  }
+  .col-5 {
+    width: 41.66%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-7 {
+    width: 58.33%;
+  }
+  .col-8 {
+    width: 66.66%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .col-10 {
+    width: 83.33%;
+  }
+  .col-11 {
+    width: 91.66%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+
+.defaultCentered {
+  display: block;
+  margin: auto;
+}
+
+.top-nav {
+  text-align: left;
+  padding: 1em;
+  position: fixed;
+  top: 64px;
+  height: 20px;
+  width: 100%;
+  background: rgb(211, 207, 198);
+  a {
+    color: grey;
+  }
+}
+
+.page-summary {
+  z-index: 2;
+  width: 30vw;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 64px 2vw 6vh 2vw; //calc(64px + 5%) 5% 5% 2%;
+  background: rgb(211, 207, 198);
+  height: 100%;
+  h1 {
+    font-size: 6vw;
+    text-align: right;
+  }
+  p {
+    text-align: right;
+  }
+  @media only screen and (max-width: 1200px) {
+    h1 {
+      font-size: 4vw;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    height: 60px;
+    padding: 0;
+    top: 60px;
+    width: 100vw;
+    h1 {
+      font-size: 2em;
+      text-align: center;
+      margin-top: 12px;
+    }
+    p {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    top: 54px;
+  }
+  @media only screen and (max-width: 400px) {
+    top: 54px;
+  }
+}
+
+.scroll-section {
+  position: relative;
+  z-index: 1;
+  margin-top: 80px;
+  width: 68vw;
+  padding: 2vw;
+  box-sizing: border-box;
+  float: right;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  @media only screen and (min-width: 1500px) {
+    min-width: 70%;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 90%;
+    float: none;
+    margin: auto;
+    margin-top: 130px;
+  }
+  @media only screen and (max-width: 500px) {
+    margin-top: 112px;
+    padding: 0;
+  }
+  @media only screen and (max-width: 400px) {
+    margin-top: 130px;
+    padding: 0;
+    margin: auto;
+  }
+}
