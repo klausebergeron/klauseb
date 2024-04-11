@@ -9,7 +9,7 @@ const PictureContainer: React.FC<PictureContainerProps> = (props) => {
   var title = fpArr[fpArr.length - 1]
     .replace(".jpg", "")
     .replace(".png", "")
-    .replace("%20", "");
+    .replaceAll("%20", " ");
   const indToSlice = title.includes("-") ? title.indexOf("-") : title.length;
   title.slice(0, indToSlice);
   console.log("title: ", title);
