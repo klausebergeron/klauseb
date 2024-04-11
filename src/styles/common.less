@@ -175,3 +175,99 @@
     margin: auto;
   }
 }
+
+#root {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  @media only screen and (min-width: 1800px) {
+    width: 80%;
+  }
+}
+
+#homeContainer {
+  margin-top: 64px;
+}
+
+.buttonRow {
+  margin: auto;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //set desktop style property second for faster mobile loading
+  @media only screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.buttonRow > .button {
+  position: static;
+  margin: auto;
+  margin-top: 1%;
+  height: 5em;
+  width: 5em;
+  border-radius: 4em;
+  text-align: center;
+  line-height: 5em;
+  transition: box-shadow cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+  background: rgba(0, 0, 0, 0.87);
+  color: white;
+  &:hover {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 2em 1em #464646;
+    }
+  }
+}
+
+#resumeWrapper {
+  display: block;
+  position: fixed;
+  height: 100%;
+  width: 80%;
+  top: 60px;
+  left: 10%;
+  animation: slideUp 0.5s;
+}
+
+.resume {
+  display: block;
+  margin: auto;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  z-index: 2;
+  border: 3px solid black;
+}
+
+.closeResume {
+  border-style: solid;
+  border-color: black;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+  }
+  & > img {
+    width: 38px;
+    margin-top: 4px;
+  }
+}
+
+.closeWindowDown {
+  animation: slideDown 1s !important;
+}
+
+@keyframes slideUp {
+  from {
+    top: 100%;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    top: 60px;
+  }
+  to {
+    top: 200%;
+  }
+}
