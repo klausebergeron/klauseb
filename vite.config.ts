@@ -22,10 +22,6 @@ export default defineConfig({
       },
     ],
   },
-  //Build  for Github deployement
-  //build: {
-  //  outDir: "build",
-  //},
   plugins: [
     react(),
     nodePolyfills({
@@ -36,7 +32,6 @@ export default defineConfig({
       },
       overrides: {
         // Since `fs` is not supported in browsers
-        //we can use the `memfs` package to polyfill it.
         fs: "memfs",
       },
     }),
