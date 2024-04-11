@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "src/styles/app.less";
-import "src/styles/common.less";
+import "./styles/app.less";
+import "./styles/common.less";
 import ArtLanding from "./ArtPage/ArtLanding";
 import WritingLanding from "./WritingPage/WritingLanding";
 import ProjectsLanding from "./ProjectsPage/ProjectsLanding";
