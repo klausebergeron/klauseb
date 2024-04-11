@@ -26,4 +26,9 @@ export default defineConfig({
       allow: [searchForWorkspaceRoot(process.cwd()), "/"],
     },
   },
+  resolve: {
+    alias: {
+      "./runtimeConfig": "./runtimeConfig.browser",
+    },
+  },
 });
