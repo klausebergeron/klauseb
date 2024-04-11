@@ -1,10 +1,19 @@
 import { defineConfig, searchForWorkspaceRoot } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import react from "@vitejs/plugin-react";
+import path from "path";
+import glob from "glob";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: "src",
+  base: "",
+  root: path.join(__dirname, ""),
+  build: {
+    outDir: path.join(__dirname, "dist"),
+    rollupOptions: {
+      input: glob.sync(path.resolve(__dirname, "", "*.html")),
+    },
+  },
   resolve: {
     alias: [
       {
@@ -14,9 +23,9 @@ export default defineConfig({
     ],
   },
   //Build  for Github deployement
-  build: {
-    outDir: "build",
-  },
+  //build: {
+  //  outDir: "build",
+  //},
   plugins: [
     react(),
     nodePolyfills({
