@@ -16,7 +16,9 @@ const WritingLanding: React.FC = () => {
   return (
     <div>
       <HeaderBar activePage="writing" />
-      <div>
+      <div style={{ marginTop: "80px" }}>
+        <h3>Under construction</h3>
+        <h4>Responsive styling in progress</h4>
         <div id="circleSpace">
           <div id="centercircle">
             <h1 className="titleW">Writing</h1>
