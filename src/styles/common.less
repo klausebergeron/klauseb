@@ -233,21 +233,38 @@
 #resumeWrapper {
   display: block;
   position: fixed;
-  height: 100%;
+  height: 90%;
   width: 80%;
   top: 60px;
   left: 10%;
+  border: 3px solid black;
   animation: slideUp 0.5s;
+  @media only screen and (max-width: 500px) {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    iframe {
+      //position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 
-.resume {
-  display: block;
-  margin: auto;
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
-  z-index: 2;
-  border: 3px solid black;
-}
+// .resume {
+//   display: block;
+//   margin: auto;
+//   width: -webkit-fill-available;
+//   height: -webkit-fill-available;
+//   z-index: 2;
+//   border: 3px solid black;
+//   @media only screen and (max-width: 500px) {
+//     width: 100%;
+//     left: 0;
+//   }
+// }
 
 .closeResume {
   border-style: solid;
@@ -278,5 +295,12 @@
   }
   to {
     top: 200%;
+  }
+}
+
+.show-mobile {
+  display: none;
+  @media only screen and (max-width: 500px) {
+    display: block;
   }
 }
