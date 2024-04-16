@@ -27,7 +27,7 @@ const One = () => {
         up under my eyelid when I finally blinked. You forget to blink sometimes
         when you’re programming; if you break focus for a second you’ll likely
         spend upwards of ten extra minutes re-establishing what you were doing.
-        breaks are exponentially counter-productive so, if you’ve got a whole
+        Breaks are exponentially counter-productive so, if you’ve got a whole
         lot of code to write, it’s best to just hammer it out without stopping
         at all. That’s how you end up like me, most days, gluey eyed and
         slack-jawed, zombie-faced stare fixed on a screen, fingers freezing from
