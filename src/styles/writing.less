@@ -5,7 +5,12 @@
   width: 90%;
   left: 10%;
 }
-
+#circleSpaces {
+  display: flex;
+  @media only screen and (max-width: 500px) {
+    display: inline-flex;
+  }
+}
 #circleSpace {
   position: relative;
   top: 0;
@@ -15,9 +20,9 @@
 }
 
 #miniCircleSpace {
-  position: absolute;
+  position: sticky;
   top: 74px;
-  left: 500px;
+  margin-left: -200px;
   height: 700px;
   width: 700px;
   @media only screen and (max-width: 500px) {
