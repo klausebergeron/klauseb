@@ -25,9 +25,9 @@ const One = () => {
       <p>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My left contact folded
         up under my eyelid when I finally blinked. You forget to blink sometimes
-        when you’re programming; if you br/eak focus for a second you’ll likely
+        when you’re programming; if you break focus for a second you’ll likely
         spend upwards of ten extra minutes re-establishing what you were doing.
-        br/eaks are exponentially counter-productive so, if you’ve got a whole
+        breaks are exponentially counter-productive so, if you’ve got a whole
         lot of code to write, it’s best to just hammer it out without stopping
         at all. That’s how you end up like me, most days, gluey eyed and
         slack-jawed, zombie-faced stare fixed on a screen, fingers freezing from
@@ -88,7 +88,7 @@ const One = () => {
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I was still a moment,
         watching the cursor blink at the end of the error message. The logical
-        part of my br/ain knew it was impossible, that it was a mild
+        part of my brain knew it was impossible, that it was a mild
         hallucination, nothing but sleep deprivation playing tricks on the mind.
         It didn’t change how fast my heart was beating, though. It certainly
         didn’t change how much I wanted to believe.
