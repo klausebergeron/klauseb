@@ -1,6 +1,5 @@
 import { useState } from "react";
 import logo from "./assets/klause-b-logo.png";
-import resume from "./assets/Resume.pdf";
 import lowerIcon from "./assets/lower-icon.png";
 import HeaderBar from "./navBar";
 import { Link } from "react-router-dom";
