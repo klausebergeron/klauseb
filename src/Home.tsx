@@ -44,15 +44,19 @@ function Home() {
             <div className={"closeResume"} onClick={closeResume}>
               <img src={lowerIcon} />
             </div>
-            <div className={"resume"} id="resume">
+            <object
+              data={resume}
+              type="application/pdf"
+              width="100%"
+              height="94%"
+            >
               <iframe
-                frameBorder="0"
-                scrolling="auto"
-                height="100%"
+                src="https://drive.google.com/file/d/1LxCzaVgQS__bdklceXpqEMgdbbq6Yycd/preview"
                 width="100%"
-                src={resume}
+                height="94%"
+                allow="autoplay"
               ></iframe>
-            </div>
+            </object>
           </div>
         )}
       </div>
