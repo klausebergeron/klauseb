@@ -20,7 +20,7 @@ function Home() {
     <>
       <HeaderBar activePage="home" />
       <div id="homeContainer">
-        <img src={logo} style={{ width: "22%", marginTop: "70px" }} />
+        <img src={logo} id={"homeLogo"} />
         <div className={"buttonRow col-6"}>
           <div
             className={"button resumebutton"}
