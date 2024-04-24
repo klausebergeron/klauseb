@@ -41,9 +41,9 @@ const convertToPageLinks = (sections: SectionType[]): SectionType[] => {
       data:
         s?.data?.map((p, i) => {
           return (
-            <div key={"linkno" + i}>
-              <Link to={"/writing/pages/" + p}>{p}</Link>
-            </div>
+            <Link key={"linkno" + i} to={"/writing/pages/" + p}>
+              {typeof p === "string" ? p : p.toString()}
+            </Link>
           );
         }) || [],
     };
@@ -64,14 +64,13 @@ const WritingLanding: React.FC = () => {
           google doc. Sorry. You can check out my old page which was originally
           written in PHP but converted to React
           <span>
-            <Link to={"/writing/old"}> here </Link>
+            <Link to={"/writing/old"}> here. </Link>
           </span>
-          . It has pretty animations.
+          It has more fun animations but isn't good for mobile displays.
         </p>
       </div>
       <div className="scroll-section">
-        <div>Accordion here</div>
-        <Accordion multiOpen={true} sections={pagesData} />
+        <Accordion multiOpen={true} sections={pagesData} width={"100%"} />
       </div>
     </div>
   );

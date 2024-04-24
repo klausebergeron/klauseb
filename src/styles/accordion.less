@@ -1,25 +1,44 @@
 .grow-open {
-  display: block;
+  max-height: 500px;
+  position: relative;
+  -moz-transition: max-height 1.5s ease;
+  -webkit-transition: max-height 1.5s ease;
+  -o-transition: max-height 1.5s ease;
+  transition: max-height 1.5s ease;
+  overflow: hidden;
 }
 
 .shrink-closed {
-  display: none;
+  -webkit-transition: max-height 0.25s ease;
+  -moz-transition: max-height 0.25s ease;
+  -ms-transition: max-height 0.25s ease;
+  -o-transition: max-height 0.25s ease;
+  transition: max-height 0.25s ease;
+  overflow: hidden;
+  max-height: 0;
 }
 
 .accordion {
-  &:hover {
-    cursor: pointer;
-  }
   &.row {
     display: flex;
+    border-bottom: 1px solid;
+    &:hover {
+      cursor: pointer;
+    }
   }
   h3 {
     color: black;
+    line-height: 2em;
   }
   .icon {
     svg {
       margin-block-start: 1em;
       margin-block-end: 1em;
     }
+  }
+  &.subsection {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    background: #d3cfc6;
   }
 }

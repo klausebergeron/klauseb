@@ -17,7 +17,7 @@ export type SectionType = {
 
 type SectionProps = {
   title: string;
-  data: any | null;
+  data: any[] | null;
   isOpen: boolean;
   setOpen: (id: string) => void;
 };
@@ -30,7 +30,11 @@ const Section = ({ title, data, isOpen, setOpen }: SectionProps) => {
         </div>
         <h3 className="accordion">{title}</h3>
       </div>
-      <div className={isOpen ? "grow-open" : "shrink-closed"}>{data}</div>
+      <div className={isOpen ? "grow-open" : "shrink-closed"}>
+        {data?.map((d) => (
+          <div className={"accordion subsection"}>{d}</div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -38,8 +42,9 @@ const Section = ({ title, data, isOpen, setOpen }: SectionProps) => {
 type AccordianProps = {
   multiOpen: boolean | true;
   sections: SectionType[];
+  width?: number | string;
 };
-const Accordion = ({ multiOpen, sections }: AccordianProps) => {
+const Accordion = ({ multiOpen, sections, width }: AccordianProps) => {
   const [openIds, setOpenIds] = useState<string[]>([]);
   const handleOpen = (title: string) => {
     if (multiOpen) {
@@ -54,7 +59,7 @@ const Accordion = ({ multiOpen, sections }: AccordianProps) => {
     }
   };
   return (
-    <div>
+    <div style={{ width: width }}>
       {sections.map((section, i) => (
         <Section
           key={"section" + i}

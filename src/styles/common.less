@@ -96,6 +96,7 @@
   height: 20px;
   width: 100%;
   background: rgb(211, 207, 198);
+  z-index: 2;
   a {
     color: grey;
   }
@@ -177,13 +178,14 @@
 #root {
   text-align: center;
   margin: auto;
+  margin-top: 0;
   width: 100%;
 }
 
 #homeContainer {
   margin-top: 64px;
   @media only screen and (max-width: 768px) {
-    margin-top: 0;
+    margin-top: 20vh;
   }
 }
 #homeLogo {

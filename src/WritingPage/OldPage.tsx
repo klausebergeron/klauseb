@@ -16,6 +16,9 @@ const WritingLandingOld: React.FC = () => {
   return (
     <div>
       <HeaderBar activePage="writing" />
+      <div className="top-nav back">
+        <Link to={"/writing"}>{"<< Back"}</Link>
+      </div>
       <div style={{ marginTop: "80px" }}>
         <div id="circleSpaces">
           <div id="circleSpace">
