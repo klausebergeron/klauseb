@@ -1,0 +1,25 @@
+.grow-open {
+  display: block;
+}
+
+.shrink-closed {
+  display: none;
+}
+
+.accordion {
+  &:hover {
+    cursor: pointer;
+  }
+  &.row {
+    display: flex;
+  }
+  h3 {
+    color: black;
+  }
+  .icon {
+    svg {
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+    }
+  }
+}

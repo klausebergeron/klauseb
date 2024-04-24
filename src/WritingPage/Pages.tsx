@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import HeaderBar from "../navBar";
 import "../styles/writing.less";
 import "../styles/common.less";
@@ -36,11 +36,20 @@ const Pages = () => {
         return <div>Not Found</div>;
     }
   };
+  const navigate = useNavigate();
   return (
     <div>
       <HeaderBar activePage="writing" />
       <div className="top-nav back">
-        <Link to="/writing">{"<< Back"}</Link>
+        <Link
+          to={".."}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          {"<< Back"}
+        </Link>
       </div>
       <div className="writing-container">
         <h1>{page}</h1>

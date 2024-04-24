@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import HeaderBar from "../navBar";
 import "../styles/writing.less";
+import { SectionType } from "../utils/Accordion";
+import Accordion from "../utils/Accordion";
 
 const pages = [
   "Melody",
@@ -12,41 +14,64 @@ const pages = [
   "Jamilla",
   "Stress Fractures",
 ];
+
+const accordion_data: SectionType[] = [
+  {
+    title: "Short Stories",
+    data: ["Melody"],
+  },
+  {
+    title: "Poems",
+    data: ["Belt", "Gaps", "Losing"],
+  },
+  {
+    title: "Book Chapters",
+    data: ["One", "Two"],
+  },
+  {
+    title: "Papers",
+    data: ["Jamilla", "Stress Fractures"],
+  },
+];
+
+const convertToPageLinks = (sections: SectionType[]): SectionType[] => {
+  return sections.map((s: SectionType) => {
+    return {
+      title: s.title,
+      data:
+        s?.data?.map((p, i) => {
+          return (
+            <div key={"linkno" + i}>
+              <Link to={"/writing/pages/" + p}>{p}</Link>
+            </div>
+          );
+        }) || [],
+    };
+  });
+};
+
 const WritingLanding: React.FC = () => {
+  const pagesData = convertToPageLinks(accordion_data);
+  console.log("Pages data: ", pagesData);
   return (
     <div>
       <HeaderBar activePage="writing" />
-      <div style={{ marginTop: "80px" }}>
-        <h3 className={"show-mobile"}>Under construction</h3>
-        <h4 className={"show-mobile"}>Responsive styling in progress</h4>
-        <div id="circleSpaces">
-          <div id="circleSpace">
-            <div id="centercircle">
-              <h1 className="titleW">Writing</h1>
-            </div>
-            <div className="planet planet1" />
-            <div className="planet planet1 delay"></div>
-            <div className="subtitleW one">Short Stories</div>
-            <div className="planet planet2" />
-            <div className="planet planet2 delay"></div>
-            <div className="subtitleW two">Poems</div>
-            <div className="planet planet3" />
-            <div className="planet planet3 delay"></div>
-            <div className="subtitleW three">Book Chapters</div>
-            <div className="planet planet4" />
-            <div className="planet planet4 delay"></div>
-            <div className="subtitleW four">Papers</div>
-          </div>
-          <div id="miniCircleSpace">
-            {pages.map((p) => {
-              return (
-                <div className="miniPlanet" id={p.replace(" ", "")}>
-                  <Link to={"/writing/pages/" + p}>{p}</Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="page-summary">
+        <h1 className="title">Writing</h1>
+        <p>
+          Some poems, essays, and book chapters from my portfolio. The well
+          formatted ones I set up way back when. Everything else is gonna be a
+          google doc. Sorry. You can check out my old page which was originally
+          written in PHP but converted to React
+          <span>
+            <Link to={"/writing/old"}> here </Link>
+          </span>
+          . It has pretty animations.
+        </p>
+      </div>
+      <div className="scroll-section">
+        <div>Accordion here</div>
+        <Accordion multiOpen={true} sections={pagesData} />
       </div>
     </div>
   );

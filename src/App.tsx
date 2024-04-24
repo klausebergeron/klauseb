@@ -4,7 +4,7 @@ import WritingLanding from "./WritingPage/WritingLanding";
 import ProjectsLanding from "./ProjectsPage/ProjectsLanding";
 import Home from "./Home";
 import Pages from "./WritingPage/Pages";
-
+import WritingLandingOld from "./WritingPage/OldPage";
 function App() {
   return (
     <>
@@ -14,6 +14,7 @@ function App() {
           <Route path="/art" element={<ArtLanding />} />
           <Route path="/writing" element={<WritingLanding />} />
           <Route path="/writing/pages/:page" element={<Pages />} />
+          <Route path="/writing/old" element={<WritingLandingOld />} />
           <Route path="/projects" element={<ProjectsLanding />} />
         </Routes>
       </BrowserRouter>
