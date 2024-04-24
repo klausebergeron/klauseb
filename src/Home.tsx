@@ -21,7 +21,7 @@ function Home() {
       <HeaderBar activePage="home" />
       <div id="homeContainer">
         <img src={logo} id={"homeLogo"} />
-        <div className={"buttonRow col-6"}>
+        <div className={"buttonRow col-7"}>
           <div
             className={"button resumebutton"}
             onClick={() => setResumeOpen(true)}

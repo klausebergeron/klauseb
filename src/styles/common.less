@@ -218,23 +218,25 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: fit-content;
   //set desktop style property second for faster mobile loading
   @media only screen and (min-width: 768px) {
     flex-direction: row;
+    width: 60%;
   }
 }
 
 .buttonRow > .button {
   position: static;
-  margin: auto;
-  margin-top: 1%;
-  height: 5em;
-  width: 5em;
-  border-radius: 4em;
+  margin: 1%;
+  height: 7em;
+  width: 7em;
+  border-radius: 200%;
   text-align: center;
-  line-height: 5em;
+  line-height: 7em;
   transition: box-shadow cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
-  background: rgba(0, 0, 0, 0.87);
+  //background: rgba(0, 0, 0, 0.87);
+  background-color: #45433c;
   color: white;
   &:hover {
     cursor: pointer;

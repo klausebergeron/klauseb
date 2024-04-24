@@ -25,8 +25,8 @@ const Section = ({ title, data, isOpen, setOpen }: SectionProps) => {
   return (
     <div>
       <div className={"accordion row"} onClick={() => setOpen(title)}>
-        <div className="icon">
-          {isOpen ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+        <div className={isOpen ? "point-down icon" : "point-right icon"}>
+          {<ChevronRightIcon />}
         </div>
         <h3 className="accordion">{title}</h3>
       </div>
