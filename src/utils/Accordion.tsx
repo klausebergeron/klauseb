@@ -31,8 +31,10 @@ const Section = ({ title, data, isOpen, setOpen }: SectionProps) => {
         <h3 className="accordion">{title}</h3>
       </div>
       <div className={isOpen ? "grow-open" : "shrink-closed"}>
-        {data?.map((d) => (
-          <div className={"accordion subsection"}>{d}</div>
+        {data?.map((d, i) => (
+          <div key={"data" + i} className={"accordion subsection"}>
+            {d}
+          </div>
         ))}
       </div>
     </div>

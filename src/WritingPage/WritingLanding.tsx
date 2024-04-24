@@ -4,17 +4,6 @@ import "../styles/writing.less";
 import { SectionType } from "../utils/Accordion";
 import Accordion from "../utils/Accordion";
 
-const pages = [
-  "Melody",
-  "Belt",
-  "Gaps",
-  "Losing",
-  "One",
-  "Two",
-  "Jamilla",
-  "Stress Fractures",
-];
-
 const accordion_data: SectionType[] = [
   {
     title: "Short Stories",
@@ -22,7 +11,16 @@ const accordion_data: SectionType[] = [
   },
   {
     title: "Poems",
-    data: ["Belt", "Gaps", "Losing"],
+    data: [
+      "Belt",
+      "Gaps",
+      "Losing",
+      {
+        title: "Killing Two Words with One Phone",
+        doclink:
+          "https://docs.google.com/document/d/1kHBxNtV4ugZWklhwIkxfdCBPxGu5eKb37RbcvZfnGyY/edit?usp=sharing",
+      },
+    ],
   },
   {
     title: "Book Chapters",
@@ -41,8 +39,15 @@ const convertToPageLinks = (sections: SectionType[]): SectionType[] => {
       data:
         s?.data?.map((p, i) => {
           return (
-            <Link key={"linkno" + i} to={"/writing/pages/" + p}>
-              {typeof p === "string" ? p : p.toString()}
+            <Link
+              key={"linkno" + i}
+              //@ts-ignore
+              to={p.doclink ? p.doclink : "/writing/pages/" + p}
+            >
+              {
+                //@ts-ignore
+                p.title ? p.title : p
+              }
             </Link>
           );
         }) || [],
@@ -52,7 +57,6 @@ const convertToPageLinks = (sections: SectionType[]): SectionType[] => {
 
 const WritingLanding: React.FC = () => {
   const pagesData = convertToPageLinks(accordion_data);
-  console.log("Pages data: ", pagesData);
   return (
     <div>
       <HeaderBar activePage="writing" />

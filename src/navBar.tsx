@@ -79,11 +79,11 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
             >
               {pages.map((page) => (
                 <MenuItem
-                  key={page}
+                  key={"menuitem" + page}
                   className={page === activePage ? "active" : ""}
                   onClick={handleCloseNavMenu}
                 >
-                  <Link key={page} to={"/" + page}>
+                  <Link key={"dropdownlinkitem" + page} to={"/" + page}>
                     {page}
                   </Link>
                 </MenuItem>
@@ -93,9 +93,9 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
           {/*Desktop and large page menu*/}
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link to={"/" + page}>
+              <Link key={"barlinkitem" + page} to={"/" + page}>
                 <Button
-                  key={page}
+                  key={"button" + page}
                   id={page + "page"}
                   sx={{ my: 2, color: "white", display: "block" }}
                   className={page === activePage ? "active" : ""}
