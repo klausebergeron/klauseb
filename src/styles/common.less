@@ -120,11 +120,27 @@
   h1 {
     font-size: 6vw;
     text-align: right;
+    background: rgb(109, 106, 95);
+    padding: 0.5em;
+    border-radius: 3px;
+    color: rgb(211, 207, 198);
   }
   p {
     text-align: right;
+    background: rgb(149, 145, 134);
+    padding: 1em;
+    border-radius: 3px;
+    color: rgb(233, 231, 225);
+    span a {
+      color: #a9d2ff;
+      text-decoration: double;
+      &:hover {
+        text-decoration: underline;
+        color: #7cabdd;
+      }
+    }
   }
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1600px) {
     h1 {
       font-size: 4vw;
     }

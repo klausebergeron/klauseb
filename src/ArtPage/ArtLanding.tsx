@@ -26,7 +26,11 @@ const ArtLanding: React.FC<{}> = () => {
       <HeaderBar activePage="art" />
       <div className="page-summary">
         <h1 className="title">Art</h1>
-        <p>Some of my little doodles</p>
+        <p>
+          Some of my little doodles.
+          <br /> Commissions are always welcome. <br />
+          Contact me at claudia.j.bergeron@gmail.com for requests.
+        </p>
       </div>
       <div className="scroll-section">
         {imgs &&
