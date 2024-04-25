@@ -1,12 +1,4 @@
-//data structure:
-/*[{
-    title: string;
-    isOpen: boolean;
-    sectionData: {list?}
-}]
-*/
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import "../styles/accordion.less";
 
