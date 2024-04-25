@@ -24,7 +24,20 @@ const accordion_data: SectionType[] = [
   },
   {
     title: "Book Chapters",
-    data: ["One", "Two"],
+    data: [
+      "One",
+      "Two",
+      {
+        title: "Hearts on Sleeves - Ch 1 & 2",
+        doclink:
+          "https://docs.google.com/document/d/1F-LDQVBn4ai1RFvKyNUlnndmHnfySGUPI__uAtz6NyA/edit?usp=sharing",
+      },
+      {
+        title: "Melanie - Ch 1",
+        doclink:
+          "https://docs.google.com/document/d/17bWfqux77l0h38Hb1g03GMiKgmncN6ImHBFSe5Iu6gY/edit?usp=sharing",
+      },
+    ],
   },
   {
     title: "Papers",
