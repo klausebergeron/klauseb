@@ -3,15 +3,41 @@ body {
 }
 
 .picture-container {
-  height: 20em;
+  padding: 1em;
+  border: 1px solid white;
+  margin-top: 1em;
+  display: inline;
+  min-height: fit-content;
+  align-content: end;
+  span {
+    max-width: -webkit-fill-available;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+  }
+}
+
+.picture-container-inner {
+  align-content: center;
+  padding: 1em;
+  background: white;
+  div {
+    height: inherit;
+    display: contents;
+  }
 }
 
 .image {
-  height: 80%;
   max-width: -webkit-fill-available;
+  max-height: 100%;
 }
 
 .label {
   text-transform: capitalize;
   width: 100%;
+  background: white;
 }

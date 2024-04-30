@@ -7,8 +7,8 @@ const pages = [
   "Belt",
   "Gaps",
   "Losing",
-  "One",
-  "Two",
+  "Silicon Fairy One",
+  "Silicon Fairy Two",
   "Jamilla",
   "Stress Fractures",
 ];
@@ -41,8 +41,13 @@ const WritingLandingOld: React.FC = () => {
           <div id="miniCircleSpace">
             {pages.map((p) => {
               return (
-                <div className="miniPlanet" id={p.replace(" ", "")}>
-                  <Link to={"/writing/pages/" + p}>{p}</Link>
+                <div
+                  className="miniPlanet"
+                  id={p.replace(" ", "").replace("SiliconFairy ", "")}
+                >
+                  <Link to={"/writing/pages/" + p}>
+                    {p.replace("Silicon Fairy ", "")}
+                  </Link>
                 </div>
               );
             })}

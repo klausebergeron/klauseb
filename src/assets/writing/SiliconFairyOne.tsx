@@ -1,7 +1,6 @@
 const One = () => {
   return (
     <div id="container">
-      <h1>Silicon Faerie</h1>
       <div id="line"></div>
       <h2>Chapter 1</h2>
       <p className="sub">

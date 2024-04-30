@@ -25,8 +25,8 @@ const accordion_data: SectionType[] = [
   {
     title: "Book Chapters",
     data: [
-      "One",
-      "Two",
+      "Silicon Fairy One",
+      "Silicon Fairy Two",
       {
         title: "Hearts on Sleeves - Ch 1 & 2",
         doclink:

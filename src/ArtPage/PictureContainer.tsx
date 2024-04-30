@@ -1,3 +1,4 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 interface PictureContainerProps {
   filePath: string;
 }
@@ -11,9 +12,15 @@ const PictureContainer: React.FC<PictureContainerProps> = (props) => {
     .replaceAll("%20", " ");
   const indToSlice = title.includes("-") ? title.indexOf("-") : title.length;
   return (
-    <div className="picture-container col-6 col-s-8">
-      <img className="image" src={filePath} />
-      <p className="label">{title.slice(0, indToSlice)}</p>
+    <div className="picture-container col-4 col-s-8">
+      <div>
+        <div className="picture-container-inner">
+          <div>
+            <LazyLoadImage className="image" src={filePath} effect="blur" />
+          </div>
+        </div>
+        <p className="label">{title.slice(0, indToSlice)}</p>
+      </div>
     </div>
   );
 };
