@@ -3,12 +3,16 @@ body {
 }
 
 .picture-container {
+  cursor: pointer;
   padding: 1em;
+  padding-bottom: 0;
   border: 1px solid white;
   margin-top: 1em;
   display: inline;
   min-height: fit-content;
   align-content: end;
+  box-shadow: 0 0 4px grey;
+  background: #d3cfc6;
   span {
     max-width: -webkit-fill-available;
   }
@@ -18,13 +22,14 @@ body {
     justify-content: space-around;
     height: -webkit-fill-available;
     width: -webkit-fill-available;
+    border-radius: 3px;
   }
 }
 
 .picture-container-inner {
   align-content: center;
   padding: 1em;
-  background: white;
+  background: #f1f0f196;
   div {
     height: inherit;
     display: contents;
@@ -39,5 +44,20 @@ body {
 .label {
   text-transform: capitalize;
   width: 100%;
-  background: white;
+  background: #f1f0f196;
+  border-radius: 3px;
+}
+
+.art-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  border: 2px solid white;
+  box-shadow: 24;
+  img {
+    max-height: 90vh;
+    margin: 2vh;
+  }
 }

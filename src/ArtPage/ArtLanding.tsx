@@ -2,6 +2,8 @@ import HeaderBar from "../navBar";
 import React, { useEffect, useState } from "react";
 import "../styles/art.less";
 import "../styles/common.less";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import PictureContainer from "./PictureContainer";
 const images = import.meta.glob("../assets/artwork/*", {
   import: "default",
@@ -10,6 +12,7 @@ const images = import.meta.glob("../assets/artwork/*", {
 
 const ArtLanding: React.FC<{}> = () => {
   const [imgs, setImgs] = useState<string[] | null>(null);
+  const [modalImg, setModalImg] = useState<string>("");
 
   useEffect(() => {
     var virtualImgs: string[] = [];
@@ -35,9 +38,20 @@ const ArtLanding: React.FC<{}> = () => {
       <div className="scroll-section">
         {imgs &&
           imgs.map((i) => {
-            return <PictureContainer key={i} filePath={i} />;
+            return (
+              <PictureContainer
+                key={i}
+                filePath={i}
+                onselect={() => setModalImg(i)}
+              />
+            );
           })}
       </div>
+      <Modal open={modalImg !== ""} onClose={() => setModalImg("")}>
+        <Box className={"art-modal"}>
+          <img src={modalImg} />
+        </Box>
+      </Modal>
     </div>
   );
 };
