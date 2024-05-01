@@ -1,3 +1,4 @@
+@import "./colors.less";
 body {
   background: rgb(216, 214, 208);
 }
@@ -12,7 +13,7 @@ body {
   min-height: fit-content;
   align-content: end;
   box-shadow: 0 0 4px grey;
-  background: #d3cfc6;
+  background: @lighter;
   span {
     max-width: -webkit-fill-available;
     max-width: -moz-available;
@@ -32,7 +33,7 @@ body {
 .picture-container-inner {
   align-content: center;
   padding: 1em;
-  background: #f1f0f196;
+  background: @greyish-lightest;
   div {
     height: inherit;
     display: contents;
@@ -49,7 +50,7 @@ body {
 .label {
   text-transform: capitalize;
   width: 100%;
-  background: #f1f0f196;
+  background: @greyish-lightest;
   border-radius: 3px;
 }
 

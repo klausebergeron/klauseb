@@ -14,6 +14,7 @@ function Home() {
     await setTimeout(() => {
       setResumeOpen(false);
       resumeWrap?.classList.remove("closeWindowDown");
+      setResumeLoading(true);
     }, 500);
   };
 
