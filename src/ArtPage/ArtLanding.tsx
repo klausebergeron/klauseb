@@ -28,12 +28,6 @@ const ArtLanding: React.FC<{}> = () => {
     setImgs(virtualImgs);
   }, []);
 
-  const expandSummary = () => {
-    if (isNarrow) {
-      setSummaryExpanded((s) => !s);
-    }
-  };
-
   return (
     <div>
       <HeaderBar activePage="art" />
@@ -59,7 +53,7 @@ const ArtLanding: React.FC<{}> = () => {
               <PictureContainer
                 key={i}
                 filePath={i}
-                onselect={() => setModalImg(i)}
+                onselect={() => (!isNarrow ? setModalImg(i) : null)}
               />
             );
           })}
