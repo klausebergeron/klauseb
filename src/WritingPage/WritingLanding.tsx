@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import HeaderBar from "../navBar";
 import "../styles/writing.less";
 import { SectionType } from "../utils/Accordion";
 import Accordion from "../utils/Accordion";
+import useWindowDimensions from "../utils/WindowDimensions";
 
 const accordion_data: SectionType[] = [
   {
@@ -69,13 +71,22 @@ const convertToPageLinks = (sections: SectionType[]): SectionType[] => {
 };
 
 const WritingLanding: React.FC = () => {
+  const { width } = useWindowDimensions();
+  const isNarrow = width < 768;
+  const [summaryExpanded, setSummaryExpanded] = useState<boolean>(false);
   const pagesData = convertToPageLinks(accordion_data);
   return (
     <div>
       <HeaderBar activePage="writing" />
       <div className="page-summary">
-        <h1 className="title">Writing</h1>
-        <p>
+        <h1 className="title" onClick={() => setSummaryExpanded((s) => !s)}>
+          Writing
+        </h1>
+        <p
+          className={
+            isNarrow ? (summaryExpanded ? "grow-open" : "shrink-closed") : ""
+          }
+        >
           Some poems, essays, and book chapters from my portfolio. The well
           formatted ones I set up way back when. Everything else is gonna be a
           google doc. Sorry. You can check out my old page which was originally

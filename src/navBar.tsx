@@ -34,7 +34,7 @@ const HeaderBar: React.FC<HeaderBarProps> = (props) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const pages = ["art", "writing", "projects"];
+  const pages = ["art", "writing", "projects", "home"];
   return (
     <AppBar position="fixed" className="bar" sx={{ flexGrow: 1 }}>
       <Container maxWidth="xl">

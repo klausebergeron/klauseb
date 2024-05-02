@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ArtLanding from "./ArtPage/ArtLanding";
 import WritingLanding from "./WritingPage/WritingLanding";
 import ProjectsLanding from "./ProjectsPage/ProjectsLanding";
@@ -11,6 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Navigate replace to="/" />} />
           <Route path="/art" element={<ArtLanding />} />
           <Route path="/writing" element={<WritingLanding />} />
           <Route path="/writing/pages/:page" element={<Pages />} />

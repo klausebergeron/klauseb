@@ -5,7 +5,8 @@ import HeaderBar from "./navBar";
 import { Link } from "react-router-dom";
 
 function Home() {
-  const [resumeOpen, setResumeOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState<boolean>(false);
+  const [resumeLoading, setResumeLoading] = useState<boolean>(true);
 
   const closeResume = async () => {
     const resumeWrap = document.getElementById("resumeWrapper");
@@ -13,6 +14,7 @@ function Home() {
     await setTimeout(() => {
       setResumeOpen(false);
       resumeWrap?.classList.remove("closeWindowDown");
+      setResumeLoading(true);
     }, 500);
   };
 
@@ -43,11 +45,13 @@ function Home() {
             <div className={"closeResume"} onClick={closeResume}>
               <img src={lowerIcon} />
             </div>
+            {resumeLoading ? <div>Loading...</div> : null}
             <iframe
               src="https://drive.google.com/file/d/1LxCzaVgQS__bdklceXpqEMgdbbq6Yycd/preview"
               width="100%"
               height="94%"
               allow="autoplay"
+              onLoad={() => setResumeLoading(false)}
             ></iframe>
           </div>
         )}

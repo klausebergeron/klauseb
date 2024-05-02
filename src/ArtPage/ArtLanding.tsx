@@ -5,6 +5,7 @@ import "../styles/common.less";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import PictureContainer from "./PictureContainer";
+import useWindowDimensions from "../utils/WindowDimensions";
 const images = import.meta.glob("../assets/artwork/*", {
   import: "default",
   eager: true,
@@ -13,6 +14,9 @@ const images = import.meta.glob("../assets/artwork/*", {
 const ArtLanding: React.FC<{}> = () => {
   const [imgs, setImgs] = useState<string[] | null>(null);
   const [modalImg, setModalImg] = useState<string>("");
+  const { width } = useWindowDimensions();
+  const isNarrow = width < 768;
+  const [summaryExpanded, setSummaryExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     var virtualImgs: string[] = [];
@@ -28,8 +32,15 @@ const ArtLanding: React.FC<{}> = () => {
     <div>
       <HeaderBar activePage="art" />
       <div className="page-summary">
-        <h1 className="title">Art</h1>
-        <p>
+        <h1 className="title" onClick={() => setSummaryExpanded((s) => !s)}>
+          Art
+        </h1>
+        <p
+          id={"artSummary"}
+          className={
+            isNarrow ? (summaryExpanded ? "grow-open" : "shrink-closed") : ""
+          }
+        >
           Some of my little doodles.
           <br /> Commissions are always welcome. <br />
           Contact me at claudia.j.bergeron@gmail.com for requests.
@@ -42,7 +53,7 @@ const ArtLanding: React.FC<{}> = () => {
               <PictureContainer
                 key={i}
                 filePath={i}
-                onselect={() => setModalImg(i)}
+                onselect={() => (!isNarrow ? setModalImg(i) : null)}
               />
             );
           })}
