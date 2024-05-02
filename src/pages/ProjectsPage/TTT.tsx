@@ -5,9 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 //0 = O
 //1 = X
 function checkBoard(board: number[][], moves: number): string {
-  //if 3 in row for 0 return "O wins!"
-  //else if 3 in row for 1 return "X wins!"
-  //else whole board is full return "Tie Game!"
   if (checkWin(board, 0)) return "O wins!";
   else if (checkWin(board, 1)) return "X wins!";
   if (moves >= 9) return "Tie Game!";
@@ -22,15 +19,24 @@ function checkWin(board: number[][], player: number): boolean {
     for (let j = 0; j < board[i].length; j++) {
       if (board.every((element) => element[i] === player)) return true;
       if (board[i][j] === player) {
-        if (i === j) leftDiag++;
-        if (i + j === board.length - 1) rightDiag++;
+        if (i === j && ++leftDiag === board.length) return true;
+        if (i + j === board.length - 1 && ++rightDiag === board.length)
+          return true;
       }
     }
   }
-
-  if (leftDiag === board.length || rightDiag === board.length) return true;
-  else return false;
+  return false;
 }
+
+function nextValidMove(board: number[][]): number[] {
+  for (let i: number = 0; i < board.length; i++) {
+    for (let j: number = 0; j < board[0].length; j++) {
+      if (board[i][j] === -1) return [i, j];
+    }
+  }
+  return [0, 0];
+}
+
 const TTT = () => {
   const boardDimension = 3;
   const [turn, setTurn] = useState<0 | 1>(0);
@@ -39,10 +45,11 @@ const TTT = () => {
     Array.from({ length: boardDimension }, () => Array(boardDimension).fill(-1))
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
+  const [computerMoves, setComputerMoves] = useState<number[][]>([]);
   const [moves, setMoves] = useState<number>(0);
 
   const makeMove = (x: number, y: number) => {
-    if (board[x][y] === -1) {
+    if (board[x][y] === -1 && gameOverMsg === "") {
       setBoard((oldBoard) => {
         const newBoard = Array.from(oldBoard);
         newBoard[x][y] = turn;
@@ -53,24 +60,61 @@ const TTT = () => {
     }
   };
 
-  const computerMakeMove = () => {
+  const computerGetNextMove = (): number[] => {
     //calculate random x y coordinates for move
-    //todo - optomize
-    let x = 0;
-    let y = 0;
-    while (board[x][y] !== -1) {
-      if (x < boardDimension - 1) x++;
-      else if (y < boardDimension - 1) {
-        x = 0;
-        y++;
+    //todo - streamline code
+    const compMovesNow = Array.from(computerMoves);
+    const boardNow = Array.from(board);
+    let x: number | null = null;
+    let y: number | null = null;
+    const possibleMoves: number[][] = [];
+    if (compMovesNow.length > 0) {
+      for (const move of compMovesNow) {
+        let moveX = move[0];
+        let moveY = move[1];
+        if (moveX > 0 && boardNow[moveX - 1][moveY] === -1)
+          possibleMoves.push([moveX - 1, moveY]);
+        if (moveX < boardNow.length && boardNow[moveX + 1][moveY] === -1)
+          possibleMoves.push([moveX + 1, moveY]);
+        if (moveY > 0 && boardNow[moveX][moveY - 1] === -1)
+          possibleMoves.push([moveX - 1, moveY]);
+        if (moveY < boardNow.length && boardNow[moveX][moveY + 1] === -1)
+          possibleMoves.push([moveX, moveY + 1]);
+        if (moveX > 0 && moveY > 0 && board[moveX - 1][moveY - 1] === -1)
+          possibleMoves.push([moveX - 1, moveY - 1]);
+        if (
+          moveX < boardNow.length &&
+          moveY < boardNow.length &&
+          boardNow[moveX + 1][moveY + 1] === -1
+        )
+          possibleMoves.push([moveX + 1, moveY + 1]);
       }
     }
-    makeMove(x, y);
+    if (possibleMoves.length > 0) {
+      for (let i = 0; i < possibleMoves.length; i++) {
+        const move = possibleMoves[i];
+        let testBoard = Array.from(boardNow);
+        testBoard[move[0]][move[1]] = 1;
+        if (checkWin(testBoard, 1)) {
+          x = move[0];
+          y = move[1];
+        }
+        break;
+      }
+    }
+
+    if (x === null || y === null) {
+      const nvm = nextValidMove(board);
+      x = nvm[0];
+      y = nvm[1];
+    }
+    return [x, y];
   };
 
   useEffect(() => {
     if (turn === 1 && againstComputer === true) {
-      computerMakeMove();
+      const computerMove = computerGetNextMove();
+      makeMove(computerMove[0], computerMove[1]);
       setTurn(0);
     }
   }, [turn]);
@@ -82,10 +126,15 @@ const TTT = () => {
   }, [moves]);
 
   const resetBoard = () => {
-    setBoard(Array.from({ length: 3 }, () => Array(3).fill(-1)));
+    setBoard(
+      Array.from({ length: boardDimension }, () =>
+        Array(boardDimension).fill(-1)
+      )
+    );
     setMoves(0);
     setGameOverMsg("");
     setTurn(0);
+    setComputerMoves([]);
   };
 
   useEffect(() => {
@@ -110,11 +159,11 @@ const TTT = () => {
         )}
       </div>
       <div className="ttt-board">
-        {Array(3)
+        {Array(boardDimension)
           .fill(0)
           .map((_, x) => (
             <div key={x} className="column">
-              {Array(3)
+              {Array(boardDimension)
                 .fill(0)
                 .map((_, y) => (
                   <div key={y} className="cell" onClick={() => makeMove(x, y)}>
