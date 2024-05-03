@@ -4,14 +4,18 @@ import Checkbox from "@mui/material/Checkbox";
 //-1 is empty space
 //0 = O
 //1 = X
-function checkBoard(board: number[][], moves: number): string {
-  if (checkWin(board, 0)) return "O wins!";
-  else if (checkWin(board, 1)) return "X wins!";
-  if (moves >= 9) return "Tie Game!";
+export const O_WIN_MSG = "O wins!";
+export const X_WIN_MSG = "X wins!";
+export const TIE_GAME_MSG = "Tie Game!";
+
+export function checkBoard(board: number[][], moves: number): string {
+  if (checkWin(board, 0)) return O_WIN_MSG;
+  else if (checkWin(board, 1)) return X_WIN_MSG;
+  if (moves >= 9) return TIE_GAME_MSG;
   else return "";
 }
 
-function checkWin(board: number[][], player: number): boolean {
+export function checkWin(board: number[][], player: number): boolean {
   let leftDiag = 0;
   let rightDiag = 0;
   for (let i = 0; i < board.length; i++) {
@@ -37,62 +41,121 @@ export function nextValidMove(board: number[][]): number[] {
   return [0, 0];
 }
 
-export function bestMoves(
-  board: number[][],
-  userOrCompMoves: number[][]
-): number[][] {
-  const possibleMoves: number[][] = [];
+export function bestMoves(board: number[][], player: number): number[][] {
+  const userOrCompMoves = getMovesForUser(board, player);
+  const possibleMoves: Set<string> = new Set();
+  const stringifyXY = (x: number, y: number) => `${x},${y}`;
   if (userOrCompMoves.length > 0) {
     for (let move of userOrCompMoves) {
-      //console.log("move: ", move);
       let moveX = move[0];
       let moveY = move[1];
-      //   console.log("MoveX: ", moveX);
-      //   console.log("MoveY: ", moveY);
-      //   console.log("is moveX less than board.length? ", moveX < board.length);
-      //   console.log("moveX+1=", moveX + 1, " board.length: ", board.length);
-      //console.log("board[x + 1][y]: ", board[moveX + 1][moveY]);
       if (moveX > 0 && board[moveX - 1][moveY] === -1) {
-        possibleMoves.push([moveX - 1, moveY]);
+        possibleMoves.add(stringifyXY(moveX - 1, moveY));
       }
       if (moveX < board.length - 1 && board[moveX + 1][moveY] === -1) {
-        possibleMoves.push([moveX + 1, moveY]);
+        possibleMoves.add(stringifyXY(moveX + 1, moveY));
       }
       if (moveY > 0 && board[moveX][moveY - 1] === -1) {
-        possibleMoves.push([moveX, moveY - 1]);
+        possibleMoves.add(stringifyXY(moveX, moveY - 1));
       }
       if (moveY < board.length - 1 && board[moveX][moveY + 1] === -1) {
-        possibleMoves.push([moveX, moveY + 1]);
+        possibleMoves.add(stringifyXY(moveX, moveY + 1));
       }
       if (moveX > 0 && moveY > 0 && board[moveX - 1][moveY - 1] === -1) {
-        possibleMoves.push([moveX - 1, moveY - 1]);
+        possibleMoves.add(stringifyXY(moveX - 1, moveY - 1));
       }
       if (
         moveX < board.length - 1 &&
         moveY < board.length - 1 &&
         board[moveX + 1][moveY + 1] === -1
       ) {
-        possibleMoves.push([moveX + 1, moveY + 1]);
+        possibleMoves.add(stringifyXY(moveX + 1, moveY + 1));
+      }
+      if (
+        moveX < board.length - 1 &&
+        moveY > 0 &&
+        board[moveX + 1][moveY - 1] === -1
+      ) {
+        possibleMoves.add(stringifyXY(moveX + 1, moveY - 1));
+      }
+      if (
+        moveX > 0 &&
+        moveY < board.length - 1 &&
+        board[moveX - 1][moveY + 1] === -1
+      ) {
+        possibleMoves.add(stringifyXY(moveX - 1, moveY + 1));
       }
     }
   }
-  return possibleMoves;
+  const arrBestMoves: number[][] = [];
+  possibleMoves.forEach((m) => {
+    let mv = m.split(",");
+    return arrBestMoves.push([+mv[0], +mv[1]]);
+  });
+  return arrBestMoves;
 }
 
-function getOneWinningMove(
-  boardNow: number[][],
-  posMoves: number[][]
+export function getOneWinningMove(
+  board: number[][],
+  player: number
 ): number[] | null {
-  for (let i = 0; i < posMoves.length; i++) {
-    const move = posMoves[i];
-    let testBoard = Array.from(boardNow);
-    testBoard[move[0]][move[1]] = 1;
-    if (checkWin(testBoard, 1)) {
+  const bestPlayerMoves = bestMoves(board, player);
+  for (let i = 0; i < bestPlayerMoves.length; i++) {
+    const move = bestPlayerMoves[i];
+    let testBoard: number[][] = JSON.parse(JSON.stringify(board));
+    testBoard[move[0]][move[1]] = player;
+    if (checkWin(testBoard, player)) {
       return [move[0], move[1]];
     }
   }
   return null;
 }
+
+export const getMovesForUser = (board: number[][], player: number) => {
+  const moves: number[][] = [];
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      if (board[i][j] === player) moves.push([i, j]);
+    }
+  }
+  return moves;
+};
+
+export const computerGetNextMove = (board: number[][]): number[] => {
+  //calculate random x y coordinates for move
+  //todo - streamline code
+  const boardNow = Array.from(board);
+  const bestComputerMoves = bestMoves(boardNow, 1);
+  const bestUserMoves = bestMoves(boardNow, 0);
+
+  let x: number | null = null;
+  let y: number | null = null;
+  let maybeBestMove: number[] | null = null;
+
+  //check if there are optimal moves for the computer
+  if (bestComputerMoves.length > 0) {
+    const winningMove = getOneWinningMove(boardNow, 1);
+    if (winningMove !== null) return [winningMove[0], winningMove[1]];
+    //if theres no winning move the next best will be some optimal one
+    else maybeBestMove = bestComputerMoves[0];
+  }
+  //check if computer can block other player from winning next turn
+  if (bestUserMoves.length > 0) {
+    const winningMove = getOneWinningMove(boardNow, 0);
+    if (winningMove !== null) return [winningMove[0], winningMove[1]];
+    //if there's no optimal move for X, steal an optimal move from 0
+    else if (maybeBestMove === null) maybeBestMove = bestUserMoves[0];
+  }
+  if (maybeBestMove !== null) return maybeBestMove;
+  //if there's no optimal moves to use or steal, get some valid move
+  else if (x === null || y === null) {
+    const nvm = nextValidMove(board);
+    x = nvm[0];
+    y = nvm[1];
+  }
+  return [x, y];
+};
+
 const TTT = () => {
   const boardDimension = 3;
   const [turn, setTurn] = useState<0 | 1>(0);
@@ -101,7 +164,6 @@ const TTT = () => {
     Array.from({ length: boardDimension }, () => Array(boardDimension).fill(-1))
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
-  const [allMoves, setAllMoves] = useState<number[][]>([]);
   const [moves, setMoves] = useState<number>(0);
 
   const makeMove = (x: number, y: number) => {
@@ -111,52 +173,14 @@ const TTT = () => {
         newBoard[x][y] = turn;
         return newBoard;
       });
-      setAllMoves(allMoves.concat([[x, y]]));
       setMoves((m) => m + 1);
       setTurn((t) => (t === 1 ? 0 : 1));
     }
   };
 
   useEffect(() => {
-    console.log("All moves: ", allMoves);
-  }, [allMoves]);
-
-  const computerGetNextMove = (): number[] => {
-    //calculate random x y coordinates for move
-    //todo - streamline code
-    const allMovesNow = Array.from(allMoves);
-    const boardNow = Array.from(board);
-    const possibleComputerMoves = bestMoves(
-      boardNow,
-      allMovesNow.filter((_, i) => i % 2 === 1)
-    );
-    const possibleUserMoves = bestMoves(
-      boardNow,
-      allMovesNow.filter((_, i) => i % 2 === 0)
-    );
-    let x: number | null = null;
-    let y: number | null = null;
-
-    if (possibleComputerMoves.length > 0) {
-      const winningMove = getOneWinningMove(boardNow, possibleComputerMoves);
-      if (winningMove !== null) return [winningMove[0], winningMove[1]];
-    } else if (possibleUserMoves.length > 0) {
-      console.log("possible user moves: ", possibleUserMoves);
-      const winningMove = getOneWinningMove(boardNow, possibleUserMoves);
-      console.log("user winning move: ", winningMove);
-      if (winningMove !== null) return [winningMove[0], winningMove[1]];
-    }
-    if (x === null || y === null) {
-      const nvm = nextValidMove(board);
-      x = nvm[0];
-      y = nvm[1];
-    }
-    return [x, y];
-  };
-
-  useEffect(() => {
     if (turn === 1 && againstComputer === true) {
-      const computerMove = computerGetNextMove();
+      const computerMove = computerGetNextMove(board);
       makeMove(computerMove[0], computerMove[1]);
     }
   }, [turn]);
@@ -176,7 +200,6 @@ const TTT = () => {
     setMoves(0);
     setGameOverMsg("");
     setTurn(0);
-    setAllMoves([]);
   };
 
   useEffect(() => {
