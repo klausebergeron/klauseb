@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import HeaderBar from "../navBar";
-import "../styles/writing.less";
+import HeaderBar from "../../navBar";
+import "../../styles/writing.less";
 
 const pages = [
   "Melody",

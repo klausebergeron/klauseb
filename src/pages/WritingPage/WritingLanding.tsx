@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import HeaderBar from "../navBar";
-import "../styles/writing.less";
-import { SectionType } from "../utils/Accordion";
-import Accordion from "../utils/Accordion";
-import useWindowDimensions from "../utils/WindowDimensions";
+import HeaderBar from "../../navBar";
+import "../../styles/writing.less";
+import { SectionType } from "../../utils/Accordion";
+import Accordion from "../../utils/Accordion";
+import useWindowDimensions from "../../utils/WindowDimensions";
 
 const accordion_data: SectionType[] = [
   {

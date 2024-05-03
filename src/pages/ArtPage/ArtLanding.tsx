@@ -1,11 +1,11 @@
-import HeaderBar from "../navBar";
+import HeaderBar from "../../navBar";
 import React, { useEffect, useState } from "react";
-import "../styles/art.less";
-import "../styles/common.less";
+import "../../styles/art.less";
+import "../../styles/common.less";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import PictureContainer from "./PictureContainer";
-import useWindowDimensions from "../utils/WindowDimensions";
+import useWindowDimensions from "../../utils/WindowDimensions";
 const images = import.meta.glob("../assets/artwork/*", {
   import: "default",
   eager: true,

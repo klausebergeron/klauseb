@@ -1,5 +1,6 @@
-import HeaderBar from "../navBar";
-import "../styles/projects.less";
+import { Link } from "react-router-dom";
+import HeaderBar from "../../navBar";
+import "../../styles/projects.less";
 
 const ProjectsPage: React.FC = () => {
   return (
@@ -13,6 +14,23 @@ const ProjectsPage: React.FC = () => {
         <div className="scroll-section">
           <div>
             <div>
+              <div className="project-link">
+                <Link to={"/projects/tttgame"}>
+                  Tic-tac-toe <br />
+                  <span className="sub-description">
+                    My little refresher on game coding. Play tic-tac-toe against
+                    another person or the very basic algorithm.
+                  </span>
+                </Link>
+              </div>
+              <div className="project-link">
+                <Link to={"/projects/tamagame"}>
+                  Little Game <br />
+                  <span className="sub-description">
+                    Work in progress -- play a little game against the computer.
+                  </span>
+                </Link>
+              </div>
               <div className="project-link">
                 <a href="https://prezi.com/p/w6uqdhhalxd8/cell-counting/">
                   Using Convolutional Neural Networks <br />

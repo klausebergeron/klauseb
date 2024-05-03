@@ -1,15 +1,15 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import HeaderBar from "../navBar";
-import "../styles/writing.less";
-import "../styles/common.less";
-import One from "../assets/writing/SiliconFairyOne";
-import Two from "../assets/writing/SiliconFairyTwo";
-import Melody from "../assets/writing/Melody";
-import Belt from "../assets/writing/Belt";
-import Gaps from "../assets/writing/Gaps";
-import Losing from "../assets/writing/Losing";
-import Jamilla from "../assets/writing/Jamilla";
-import StressFractures from "../assets/writing/StressFractures";
+import HeaderBar from "../../navBar";
+import "../../styles/writing.less";
+import "../../styles/common.less";
+import One from "../../assets/writing/SiliconFairyOne";
+import Two from "../../assets/writing/SiliconFairyTwo";
+import Melody from "../../assets/writing/Melody";
+import Belt from "../../assets/writing/Belt";
+import Gaps from "../../assets/writing/Gaps";
+import Losing from "../../assets/writing/Losing";
+import Jamilla from "../../assets/writing/Jamilla";
+import StressFractures from "../../assets/writing/StressFractures";
 
 const Pages = () => {
   const { page } = useParams();
