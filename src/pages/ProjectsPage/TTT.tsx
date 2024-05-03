@@ -28,7 +28,7 @@ function checkWin(board: number[][], player: number): boolean {
   return false;
 }
 
-function nextValidMove(board: number[][]): number[] {
+export function nextValidMove(board: number[][]): number[] {
   for (let i: number = 0; i < board.length; i++) {
     for (let j: number = 0; j < board[0].length; j++) {
       if (board[i][j] === -1) return [i, j];
@@ -37,6 +37,62 @@ function nextValidMove(board: number[][]): number[] {
   return [0, 0];
 }
 
+export function bestMoves(
+  board: number[][],
+  userOrCompMoves: number[][]
+): number[][] {
+  const possibleMoves: number[][] = [];
+  if (userOrCompMoves.length > 0) {
+    for (let move of userOrCompMoves) {
+      //console.log("move: ", move);
+      let moveX = move[0];
+      let moveY = move[1];
+      //   console.log("MoveX: ", moveX);
+      //   console.log("MoveY: ", moveY);
+      //   console.log("is moveX less than board.length? ", moveX < board.length);
+      //   console.log("moveX+1=", moveX + 1, " board.length: ", board.length);
+      //console.log("board[x + 1][y]: ", board[moveX + 1][moveY]);
+      if (moveX > 0 && board[moveX - 1][moveY] === -1) {
+        possibleMoves.push([moveX - 1, moveY]);
+      }
+      if (moveX < board.length - 1 && board[moveX + 1][moveY] === -1) {
+        possibleMoves.push([moveX + 1, moveY]);
+      }
+      if (moveY > 0 && board[moveX][moveY - 1] === -1) {
+        possibleMoves.push([moveX, moveY - 1]);
+      }
+      if (moveY < board.length - 1 && board[moveX][moveY + 1] === -1) {
+        possibleMoves.push([moveX, moveY + 1]);
+      }
+      if (moveX > 0 && moveY > 0 && board[moveX - 1][moveY - 1] === -1) {
+        possibleMoves.push([moveX - 1, moveY - 1]);
+      }
+      if (
+        moveX < board.length - 1 &&
+        moveY < board.length - 1 &&
+        board[moveX + 1][moveY + 1] === -1
+      ) {
+        possibleMoves.push([moveX + 1, moveY + 1]);
+      }
+    }
+  }
+  return possibleMoves;
+}
+
+function getOneWinningMove(
+  boardNow: number[][],
+  posMoves: number[][]
+): number[] | null {
+  for (let i = 0; i < posMoves.length; i++) {
+    const move = posMoves[i];
+    let testBoard = Array.from(boardNow);
+    testBoard[move[0]][move[1]] = 1;
+    if (checkWin(testBoard, 1)) {
+      return [move[0], move[1]];
+    }
+  }
+  return null;
+}
 const TTT = () => {
   const boardDimension = 3;
   const [turn, setTurn] = useState<0 | 1>(0);
@@ -45,7 +101,7 @@ const TTT = () => {
     Array.from({ length: boardDimension }, () => Array(boardDimension).fill(-1))
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
-  const [computerMoves, setComputerMoves] = useState<number[][]>([]);
+  const [allMoves, setAllMoves] = useState<number[][]>([]);
   const [moves, setMoves] = useState<number>(0);
 
   const makeMove = (x: number, y: number) => {
@@ -55,54 +111,41 @@ const TTT = () => {
         newBoard[x][y] = turn;
         return newBoard;
       });
+      setAllMoves(allMoves.concat([[x, y]]));
       setMoves((m) => m + 1);
       setTurn((t) => (t === 1 ? 0 : 1));
     }
   };
 
+  useEffect(() => {
+    console.log("All moves: ", allMoves);
+  }, [allMoves]);
+
   const computerGetNextMove = (): number[] => {
     //calculate random x y coordinates for move
     //todo - streamline code
-    const compMovesNow = Array.from(computerMoves);
+    const allMovesNow = Array.from(allMoves);
     const boardNow = Array.from(board);
+    const possibleComputerMoves = bestMoves(
+      boardNow,
+      allMovesNow.filter((_, i) => i % 2 === 1)
+    );
+    const possibleUserMoves = bestMoves(
+      boardNow,
+      allMovesNow.filter((_, i) => i % 2 === 0)
+    );
     let x: number | null = null;
     let y: number | null = null;
-    const possibleMoves: number[][] = [];
-    if (compMovesNow.length > 0) {
-      for (const move of compMovesNow) {
-        let moveX = move[0];
-        let moveY = move[1];
-        if (moveX > 0 && boardNow[moveX - 1][moveY] === -1)
-          possibleMoves.push([moveX - 1, moveY]);
-        if (moveX < boardNow.length && boardNow[moveX + 1][moveY] === -1)
-          possibleMoves.push([moveX + 1, moveY]);
-        if (moveY > 0 && boardNow[moveX][moveY - 1] === -1)
-          possibleMoves.push([moveX - 1, moveY]);
-        if (moveY < boardNow.length && boardNow[moveX][moveY + 1] === -1)
-          possibleMoves.push([moveX, moveY + 1]);
-        if (moveX > 0 && moveY > 0 && board[moveX - 1][moveY - 1] === -1)
-          possibleMoves.push([moveX - 1, moveY - 1]);
-        if (
-          moveX < boardNow.length &&
-          moveY < boardNow.length &&
-          boardNow[moveX + 1][moveY + 1] === -1
-        )
-          possibleMoves.push([moveX + 1, moveY + 1]);
-      }
-    }
-    if (possibleMoves.length > 0) {
-      for (let i = 0; i < possibleMoves.length; i++) {
-        const move = possibleMoves[i];
-        let testBoard = Array.from(boardNow);
-        testBoard[move[0]][move[1]] = 1;
-        if (checkWin(testBoard, 1)) {
-          x = move[0];
-          y = move[1];
-        }
-        break;
-      }
-    }
 
+    if (possibleComputerMoves.length > 0) {
+      const winningMove = getOneWinningMove(boardNow, possibleComputerMoves);
+      if (winningMove !== null) return [winningMove[0], winningMove[1]];
+    } else if (possibleUserMoves.length > 0) {
+      console.log("possible user moves: ", possibleUserMoves);
+      const winningMove = getOneWinningMove(boardNow, possibleUserMoves);
+      console.log("user winning move: ", winningMove);
+      if (winningMove !== null) return [winningMove[0], winningMove[1]];
+    }
     if (x === null || y === null) {
       const nvm = nextValidMove(board);
       x = nvm[0];
@@ -115,7 +158,6 @@ const TTT = () => {
     if (turn === 1 && againstComputer === true) {
       const computerMove = computerGetNextMove();
       makeMove(computerMove[0], computerMove[1]);
-      setTurn(0);
     }
   }, [turn]);
 
@@ -134,7 +176,7 @@ const TTT = () => {
     setMoves(0);
     setGameOverMsg("");
     setTurn(0);
-    setComputerMoves([]);
+    setAllMoves([]);
   };
 
   useEffect(() => {
