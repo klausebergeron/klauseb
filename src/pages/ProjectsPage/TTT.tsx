@@ -1,6 +1,8 @@
 import "../../styles/ttt.less";
 import { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { MenuItem } from "@mui/material";
 //-1 is empty space
 //0 = O
 //1 = X
@@ -11,7 +13,7 @@ export const TIE_GAME_MSG = "Tie Game!";
 export function checkBoard(board: number[][], moves: number): string {
   if (checkWin(board, 0)) return O_WIN_MSG;
   else if (checkWin(board, 1)) return X_WIN_MSG;
-  if (moves >= 9) return TIE_GAME_MSG;
+  if (moves >= board.length * board.length) return TIE_GAME_MSG;
   else return "";
 }
 
@@ -156,12 +158,13 @@ export const computerGetNextMove = (board: number[][]): number[] => {
   return [x, y];
 };
 
+//---------------------------------------------------------------------------------------------startclass
 const TTT = () => {
-  const boardDimension = 3;
+  const [boardDimension, setBoardDimension] = useState<number>(3);
   const [turn, setTurn] = useState<0 | 1>(0);
   const [againstComputer, setAgainstComputer] = useState<boolean>(false);
   const [board, setBoard] = useState<number[][]>(
-    Array.from({ length: boardDimension }, () => Array(boardDimension).fill(-1))
+    Array.from({ length: 3 }, () => Array(3).fill(-1))
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
   const [moves, setMoves] = useState<number>(0);
@@ -192,11 +195,10 @@ const TTT = () => {
   }, [moves]);
 
   const resetBoard = () => {
-    setBoard(
-      Array.from({ length: boardDimension }, () =>
-        Array(boardDimension).fill(-1)
-      )
+    const newBoard = Array.from({ length: boardDimension }, () =>
+      Array(boardDimension).fill(-1)
     );
+    setBoard(newBoard);
     setMoves(0);
     setGameOverMsg("");
     setTurn(0);
@@ -204,10 +206,29 @@ const TTT = () => {
 
   useEffect(() => {
     resetBoard();
-  }, [againstComputer]);
+  }, [againstComputer, boardDimension]);
+
+  const handleDimensionUpdate = (event: SelectChangeEvent) => {
+    setBoardDimension(+event.target.value);
+  };
 
   return (
     <>
+      <div>
+        <label>Board Dimension: </label>
+        <Select
+          id={"grid-dimension-select"}
+          value={boardDimension.toString()}
+          label="Board Dimension"
+          onChange={handleDimensionUpdate}
+        >
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={6}>6</MenuItem>
+          <MenuItem value={7}>7</MenuItem>
+        </Select>
+      </div>
       <div>
         <label>Play against computer</label>
         <Checkbox
@@ -224,19 +245,25 @@ const TTT = () => {
         )}
       </div>
       <div className="ttt-board">
-        {Array(boardDimension)
-          .fill(0)
-          .map((_, x) => (
-            <div key={x} className="column">
-              {Array(boardDimension)
-                .fill(0)
-                .map((_, y) => (
-                  <div key={y} className="cell" onClick={() => makeMove(x, y)}>
-                    {board[x][y] === 0 ? "O" : board[x][y] === 1 ? "X" : ""}
-                  </div>
-                ))}
-            </div>
-          ))}
+        {board &&
+          board.length === boardDimension &&
+          Array(boardDimension)
+            .fill(0)
+            .map((_, x) => (
+              <div key={x} className="column">
+                {Array(boardDimension)
+                  .fill(0)
+                  .map((_, y) => (
+                    <div
+                      key={y}
+                      className="cell"
+                      onClick={() => makeMove(x, y)}
+                    >
+                      {board[x][y] === 0 ? "O" : board[x][y] === 1 ? "X" : ""}
+                    </div>
+                  ))}
+              </div>
+            ))}
       </div>
       <div>
         <button onClick={resetBoard} className="reset-button">
