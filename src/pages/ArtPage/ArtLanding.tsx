@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import PictureContainer from "./PictureContainer";
 import useWindowDimensions from "../../utils/WindowDimensions";
-const images = import.meta.glob("../assets/artwork/*", {
+const images = import.meta.glob("../../assets/artwork/*", {
   import: "default",
   eager: true,
 });
