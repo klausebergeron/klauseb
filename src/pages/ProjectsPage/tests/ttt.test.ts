@@ -9,7 +9,7 @@ import {
   TIE_GAME_MSG,
   getOneWinningMove,
   computerGetNextMove,
-} from "../TTT";
+} from "../tttUtils";
 
 const fullTieBoard: number[][] = [
   [1, 0, 0],
