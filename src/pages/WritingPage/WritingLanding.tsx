@@ -9,7 +9,14 @@ import useWindowDimensions from "../../utils/WindowDimensions";
 const accordion_data: SectionType[] = [
   {
     title: "Short Stories",
-    data: ["Melody"],
+    data: [
+      "Melody",
+      {
+        title: "Somnifor Winters",
+        doclink:
+          "https://docs.google.com/document/d/15PlD3D8T-C0GwloK9yQLooMZ5yJ5jsWXZ6SCgOtbD7Q/edit?usp=sharing",
+      },
+    ],
   },
   {
     title: "Poems",
