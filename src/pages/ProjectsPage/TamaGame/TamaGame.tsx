@@ -9,6 +9,6 @@ export const TamaGame = () => {
 //gameboard should take props of card type (giving available spaces)
 //also piece selected
 
-const GameBoard = () => {};
+//const GameBoard = () => {};
 
 export default TamaGame;
