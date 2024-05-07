@@ -166,133 +166,84 @@ class Choice {
     this.depth = d;
   }
 }
-
-export const getDfsComputerMove = (board: number[][]): number[] | undefined => {
-  console.log("Board: ", board);
-  let maxDepth = -1;
-  let nodesMap = new Map();
-
-  const minMax = (
-    board: number[][],
-    isMax: boolean,
-    currentPlayer: number,
-    lastMove: number[] | null,
-    depth: number
-  ) => {
-    if (depth === 0) nodesMap.clear();
-    console.log("Nodes map: ", nodesMap);
-    const legalMoves = getMovesForUser(board, -1);
-    if ((legalMoves.length === 0 || depth === maxDepth) && lastMove) {
-      if (checkWin(board, 1)) {
-        //console.log("Move: ", lastMove);
-        //console.log("Found winning X board: ", board);
-        //return new Choice(lastMove, 100 - depth, depth);
-        return 100 - depth;
-      } else if (checkWin(board, 0)) {
-        //console.log("Move: ", lastMove);
-        //console.log("Found winning O board: ", board);
-        //return new Choice(lastMove, -100 + depth, depth);
-        return -100 + depth;
-      } else if (legalMoves.length === 0) {
-        //return new Choice(lastMove, 0, depth);
-        return 0;
-      }
+export const minMax = (
+  board: number[][],
+  isMax: boolean,
+  currentPlayer: number,
+  lastMove: number[] | null,
+  depth: number
+): Choice => {
+  const candidates = getMovesForUser(board, -1);
+  const thisBoard = JSON.parse(JSON.stringify(board));
+  if (lastMove) {
+    if (checkWin(thisBoard, 1)) {
+      //console.log("Found X win with move: ", lastMove);
+      return new Choice(lastMove, 10 - depth, depth);
+    } else if (checkWin(thisBoard, 0)) {
+      //console.log("Found O win with move: ", lastMove);
+      return new Choice(lastMove, -10 + depth, depth);
+    } else if (candidates.length === 0) {
+      return new Choice(lastMove, 0, depth);
     }
+  }
 
-    //const candidateChoices: Choice[] = [];
+  const candidateChoices: Choice[] = [];
 
-    if (isMax) {
-      let best = -100;
-      legalMoves.forEach((move, i) => {
-        const testBoard: number[][] = JSON.parse(JSON.stringify(board));
-        testBoard[move[0]][move[1]] = currentPlayer;
-        const nodeVal = minMax(testBoard, false, 1, move, depth + 1);
-        best = Math.max(best, nodeVal);
-        if (depth === 0) {
-          const moves = nodesMap.has(nodeVal)
-            ? `${nodesMap.get(nodeVal)},${i}`
-            : i;
-          nodesMap.set(nodeVal, moves);
-        }
-      });
-      if (depth === 0) {
-        let returnVal;
-        if (typeof nodesMap.get(best) == "string") {
-          const arr = nodesMap.get(best).split(",");
-          const rand = Math.floor(Math.random() * arr.length);
-          returnVal = arr[rand];
-        } else {
-          returnVal = nodesMap.get(best);
-        }
-        return returnVal;
-      }
-      return best;
+  for (let i = 0; i < candidates.length; i++) {
+    const candidate = candidates[i];
+    let testBoard: number[][] = JSON.parse(JSON.stringify(thisBoard));
+    testBoard[candidate[0]][candidate[1]] = currentPlayer;
+    let res = minMax(
+      testBoard,
+      currentPlayer === 1,
+      currentPlayer === 1 ? 0 : 1,
+      candidate,
+      depth + 1
+    );
+    res.move = candidate;
+    if (res) candidateChoices.push(res);
+  }
+
+  let maxChoice: Choice | null = null;
+  let maxValue = -100;
+  let minChoice: Choice | null = null;
+  let minValue = 100;
+
+  for (const choice of candidateChoices) {
+    if (isMax && choice.value > maxValue) {
+      maxChoice = choice;
+      maxValue = choice.value;
+    } else if (!isMax && choice.value < minValue) {
+      minChoice = choice;
+      minValue = choice.value;
     }
-    if (!isMax) {
-      let best = 100;
-      legalMoves.forEach((move, i) => {
-        const testBoard: number[][] = JSON.parse(JSON.stringify(board));
-        testBoard[move[0]][move[1]] = currentPlayer;
-        const nodeVal = minMax(testBoard, true, 1, move, depth + 1);
-        best = Math.min(best, nodeVal);
-        if (depth === 0) {
-          const moves = nodesMap.has(nodeVal)
-            ? `${nodesMap.get(nodeVal)},${i}`
-            : i;
-          nodesMap.set(nodeVal, moves);
-        }
-      });
-      if (depth === 0) {
-        let returnVal;
-        if (typeof nodesMap.get(best) == "string") {
-          const arr = nodesMap.get(best).split(",");
-          const rand = Math.floor(Math.random() * arr.length);
-          returnVal = arr[rand];
-        } else {
-          returnVal = nodesMap.get(best);
-        }
-        return returnVal;
-      }
-      return best;
-    }
-    // for (let i = 0; i < legalMoves.length; i++) {
-    //   let row = legalMoves[i][0];
-    //   let col = legalMoves[i][1];
-    //   let testBoard: number[][] = JSON.parse(JSON.stringify(board));
-    //   testBoard[row][col] = currentPlayer;
-    //   let result = minMax(
-    //     testBoard,
-    //     !isMax,
-    //     currentPlayer === 1 ? 0 : 1,
-    //     legalMoves[i],
-    //     depth + 1
-    //   );
-    //   if (result) candidateChoices.push(result);
-    // }
+  }
 
-    // }
-    //   let maxChoice: Choice | null = null;
-    //   let maxValue = -100;
-    //   let minChoice: Choice | null = null;
-    //   let minValue = 100;
+  if (isMax && maxChoice) {
+    return maxChoice;
+  } else if (minChoice) {
+    return minChoice;
+  } else {
+    return new Choice(getRandomMove(board), 0, 0);
+  }
+};
 
-    //   for (let i = 0; i < candidateChoices.length; i++) {
-    //     let choice = candidateChoices[i];
-    //     if (isMax && choice.value > maxValue) {
-    //       maxChoice = choice;
-    //       maxValue = choice.value;
-    //     } else if (!isMax && choice.value < minValue) {
-    //       minChoice = choice;
-    //       minValue = choice.value;
-    //     }
-    //   }
+export const getDfsComputerMove = (
+  board: number[][],
+  lastMove: number[]
+): number[] | undefined => {
+  if (
+    board[1][1] === -1 &&
+    (lastMove[0] === 0 ||
+      lastMove[1] === 0 ||
+      lastMove[0] === board.length - 1 ||
+      lastMove[1] === board.length - 1)
+  ) {
+    return [1, 1];
+  }
 
-    //   if (isMax) {
-    //     return maxChoice;
-    //   } else return minChoice;
-  };
-
-  const choice = minMax(board, true, 1, null, 0);
-  console.log("best choice: ", choice);
+  let testBoard: number[][] = JSON.parse(JSON.stringify(board));
+  const choice = minMax(testBoard, true, 1, null, 0);
+  console.log("final choice: ", choice);
   return choice?.move;
 };

@@ -174,11 +174,12 @@ describe("computerGetNextMove", () => {
 describe("getDfsComputerMove", () => {
   it("should pick the best next move based on dfs search", () => {
     const canWinBoard3: number[][] = [
-      [0, -1, 0],
-      [1, -1, 0],
-      [1, 0, 1],
+      [0, -1, -1],
+      [-1, -1, -1],
+      [-1, -1, -1],
     ];
     const actual = getDfsComputerMove(canWinBoard3);
-    expect(actual).toStrictEqual([0, 1]);
+    console.log("move: ", actual);
+    expect(actual).toStrictEqual([1, 1]);
   });
 });

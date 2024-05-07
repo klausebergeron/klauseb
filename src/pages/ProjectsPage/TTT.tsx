@@ -17,19 +17,23 @@ import HeaderBar from "../../navBar";
 
 const TTT = () => {
   const [boardDimension, setBoardDimension] = useState<number>(3);
-  const [turn, setTurn] = useState<0 | 1>(0);
+  const [turn, setTurn] = useState<0 | 1>(1);
   const [againstComputer, setAgainstComputer] = useState<boolean>(false);
   const [board, setBoard] = useState<number[][]>(
     Array.from({ length: 3 }, () => Array(3).fill(-1))
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
+  const [lastMove, setLastMove] = useState<number[]>([]);
   const [moves, setMoves] = useState<number>(0);
   const [difficulty, setDifficulty] = useState<
     "Easy" | "Medium" | "Hard" | string
   >("Hard");
 
   const makeMove = (x: number, y: number) => {
+    console.log("board: ", board);
+    //console.log("Moving: x:", x, ", y:", y);
     if (board[x][y] === -1 && gameOverMsg === "") {
+      setLastMove([x, y]);
       setBoard((oldBoard) => {
         const newBoard = Array.from(oldBoard);
         newBoard[x][y] = turn;
@@ -42,10 +46,7 @@ const TTT = () => {
 
   useEffect(() => {
     if (turn === 1 && againstComputer === true) {
-      if (difficulty === "Hard") {
-        const computerMove = getDfsComputerMove(board);
-        if (computerMove) makeMove(computerMove[0], computerMove[1]);
-      } else {
+      if (difficulty !== "Hard") {
         setTimeout(() => {
           let computerMove: number[] = [];
           if (difficulty === "Easy") {
@@ -53,7 +54,12 @@ const TTT = () => {
           } else if (difficulty === "Medium") {
             computerMove = computerGetNextMove(board);
           }
+          makeMove(computerMove[0], computerMove[1]);
         }, 500);
+      } else {
+        console.log("calling hard mode");
+        const computerMove = getDfsComputerMove(board, lastMove);
+        if (computerMove) makeMove(computerMove[0], computerMove[1]);
       }
     }
   }, [turn]);
@@ -68,6 +74,7 @@ const TTT = () => {
     const newBoard = Array.from({ length: boardDimension }, () =>
       Array(boardDimension).fill(-1)
     );
+    setLastMove([]);
     setBoard(newBoard);
     setMoves(0);
     setGameOverMsg("");
@@ -80,6 +87,9 @@ const TTT = () => {
 
   const handleDimensionUpdate = (event: SelectChangeEvent) => {
     setBoardDimension(+event.target.value);
+    if (+event.target.value > 3 && difficulty === "Hard") {
+      setDifficulty("Medium");
+    }
   };
 
   useEffect(() => {
@@ -120,7 +130,9 @@ const TTT = () => {
             >
               <MenuItem value={"Easy"}>Easy</MenuItem>
               <MenuItem value={"Medium"}>Medium</MenuItem>
-              <MenuItem value={"Hard"}>Hard</MenuItem>
+              <MenuItem disabled={boardDimension > 3} value={"Hard"}>
+                Hard
+              </MenuItem>
             </Select>
           </>
         )}
