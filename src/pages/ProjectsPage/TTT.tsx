@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
-import { checkBoard, computerGetNextMove } from "./tttUtils";
+import {
+  checkBoard,
+  computerGetNextMove,
+  getRandomMove,
+  getDfsComputerMove,
+} from "./tttUtils";
 import { Link } from "react-router-dom";
 import HeaderBar from "../../navBar";
 //-1 is empty space
@@ -19,6 +24,9 @@ const TTT = () => {
   );
   const [gameOverMsg, setGameOverMsg] = useState<string>("");
   const [moves, setMoves] = useState<number>(0);
+  const [difficulty, setDifficulty] = useState<
+    "Easy" | "Medium" | "Hard" | string
+  >("Hard");
 
   const makeMove = (x: number, y: number) => {
     if (board[x][y] === -1 && gameOverMsg === "") {
@@ -34,8 +42,19 @@ const TTT = () => {
 
   useEffect(() => {
     if (turn === 1 && againstComputer === true) {
-      const computerMove = computerGetNextMove(board);
-      makeMove(computerMove[0], computerMove[1]);
+      if (difficulty === "Hard") {
+        const computerMove = getDfsComputerMove(board);
+        if (computerMove) makeMove(computerMove[0], computerMove[1]);
+      } else {
+        setTimeout(() => {
+          let computerMove: number[] = [];
+          if (difficulty === "Easy") {
+            computerMove = getRandomMove(board);
+          } else if (difficulty === "Medium") {
+            computerMove = computerGetNextMove(board);
+          }
+        }, 500);
+      }
     }
   }, [turn]);
 
@@ -63,6 +82,10 @@ const TTT = () => {
     setBoardDimension(+event.target.value);
   };
 
+  useEffect(() => {
+    console.log("board: ", board);
+  }, [board]);
+
   return (
     <>
       <HeaderBar activePage="writing" />
@@ -72,6 +95,7 @@ const TTT = () => {
       <div style={{ marginTop: "200px" }}>
         <label>Board Dimension: </label>
         <Select
+          className="select-dimension"
           id={"grid-dimension-select"}
           value={boardDimension.toString()}
           label="Board Dimension"
@@ -83,6 +107,23 @@ const TTT = () => {
           <MenuItem value={6}>6</MenuItem>
           <MenuItem value={7}>7</MenuItem>
         </Select>
+        {"     "}
+        {againstComputer && (
+          <>
+            <label>Difficulty Level: </label>
+            <Select
+              className="select-dimension"
+              id={"grid-dimension-select"}
+              value={difficulty}
+              label="Difficulty Level"
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <MenuItem value={"Easy"}>Easy</MenuItem>
+              <MenuItem value={"Medium"}>Medium</MenuItem>
+              <MenuItem value={"Hard"}>Hard</MenuItem>
+            </Select>
+          </>
+        )}
       </div>
       <div>
         <label>Play against computer</label>

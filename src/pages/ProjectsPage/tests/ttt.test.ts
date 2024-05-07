@@ -9,6 +9,7 @@ import {
   TIE_GAME_MSG,
   getOneWinningMove,
   computerGetNextMove,
+  getDfsComputerMove,
 } from "../tttUtils";
 
 const fullTieBoard: number[][] = [
@@ -166,7 +167,18 @@ describe("computerGetNextMove", () => {
       [1, 0, 1],
     ];
     expect(getOneWinningMove(canWinBoard1, 0)).toStrictEqual([0, 1]);
-    console.log("can win board1: ", canWinBoard1);
     expect(computerGetNextMove(canWinBoard1)).toStrictEqual([0, 1]);
+  });
+});
+
+describe("getDfsComputerMove", () => {
+  it("should pick the best next move based on dfs search", () => {
+    const canWinBoard3: number[][] = [
+      [0, -1, 0],
+      [1, -1, 0],
+      [1, 0, 1],
+    ];
+    const actual = getDfsComputerMove(canWinBoard3);
+    expect(actual).toStrictEqual([0, 1]);
   });
 });
